@@ -39,8 +39,7 @@ function App() {
               </Route>
             </Switch>
           </Auth>
-        </Route>
-               
+        </Route>           
         <Route path={["/product", "/product/add", "/product/list", "/product/search", "/product/modify","/sale", "sale/add", "/sale/list", "/sale/search", "/sale/modify", "/user", "/user/profile", "/user/update"]}>
           <Private>
             <Switch>
@@ -86,8 +85,6 @@ function App() {
             </Switch>
           </Private>
         </Route>
-
-        
         <Route path="/">
           <Public>
             <Switch>

@@ -1,11 +1,13 @@
+import Footer from "components/Footer";
 import Head from "components/Head";
 import React from "react";
 
 const Private = ({ children} ) => {
   return (
-    <div>
+    <div className="flex flex-col justify-between h-screen">
       <Head />
-      {children}
+      <main className="h-full overflow-y-scroll bg-gray-100">{children}</main>
+      <Footer />
     </div>
   );
 };
