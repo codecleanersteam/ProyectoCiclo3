@@ -1,7 +1,13 @@
+import Head from "components/Head";
 import React from "react";
 
-const Private = () => {
-  return <div>Layout Privado (Ventas, Productos, Usuarios)</div>;
+const Private = ({ children} ) => {
+  return (
+    <div>
+      <Head />
+      {children}
+    </div>
+  );
 };
 
 export default Private;

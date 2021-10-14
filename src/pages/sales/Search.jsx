@@ -1,7 +1,7 @@
 import React from "react";
 
-const Seach = () => {
+const SearchSale = () => {
   return <div>Página para Buscar Ventas</div>;
 };
 
-export default Seach;
+export default SearchSale;

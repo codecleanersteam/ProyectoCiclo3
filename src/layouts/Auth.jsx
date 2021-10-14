@@ -1,7 +1,12 @@
 import React from "react";
 
-const Auth = () => {
-  return <div>Este es el layout de Autenticación</div>;
-};
+const Auth = ( {children} ) => {
+  return (
+    <div>
+      Este es el layout de Autenticación
+      {children}
+    </div>
+  );
+}
 
 export default Auth;

@@ -1,7 +1,7 @@
 import React from "react";
 
-const Index = () => {
+const User = () => {
   return <div>Página principal de Gestión de Usuarios</div>;
 };
 
-export default Index;
+export default User;

@@ -1,7 +1,7 @@
 import React from "react";
 
-const Modify = () => {
+const ModifyProduct = () => {
   return <div>Página para Modificar Productos</div>;
 };
 
-export default Modify;
+export default ModifyProduct;

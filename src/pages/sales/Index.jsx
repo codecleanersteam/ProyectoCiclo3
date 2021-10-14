@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Index = () => {
+const Sale = () => {
     return <div>Esta es la página Inicial del administrador de ventas</div>;
 }
 
-export default Index
+export default Sale
