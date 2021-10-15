@@ -20,6 +20,9 @@ import SearchSale from "pages/sales/Search";
 import User from "pages/users/Index";
 import Profile from "pages/users/Profile";
 import Update from "pages/users/Update";
+import About from "pages/About";
+import Description from "pages/Description";
+import Help from "pages/Help";
 
 function App() {
   return (
@@ -85,10 +88,19 @@ function App() {
             </Switch>
           </Private>
         </Route>
-        <Route path="/">
+        <Route path={["/", "/about, /description, /help"]}>
           <Public>
             <Switch>
-              <Route path="/" exact>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/description">
+                <Description />
+              </Route>
+              <Route path="/help">
+                <Help />
+              </Route>
+              <Route path="/">
                 <Index />
               </Route>
             </Switch>

@@ -21,18 +21,18 @@ const Login = () => {
             <button className="bg-gray-200 py-1 mt-2 w-full hover:bg-gray-300">
               <div className="flex">
                 <img src={Google} alt="Logo Google" className="mx-2 h-6 w-6"/>
-                <span className="mx-4">Continuar con Google</span>
+                <span className="mx-4 font-bold">Continuar con Google</span>
               </div>
             </button>
           </div>
           <input
-            className="appeareance-none relative block w-full px-3 py-2 border border-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-blue-600 focus:border-blue-600 focus:z-10 sm:text-sm my-2"
+            className="appeareance-none relative block w-full px-3 py-2 border border-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-blue-600 focus:border-blue-600 focus:z-10 sm:text-sm font-bold my-2"
             type="email"
             placeholder="Escriba su correo electrónico"
             required
           />
           <input
-            className="appeareance-none relative block w-full px-3 py-2 border border-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-blue-600 focus:border-blue-600 focus:z-10 sm:text-sm"
+            className="appeareance-none relative block w-full px-3 py-2 border border-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-blue-600 focus:border-blue-600 focus:z-10 sm:text-sm font-bold"
             type="password"
             placeholder="Escriba su contraseña"
             required
