@@ -9,9 +9,9 @@ const Login = () => {
       <h1 className="m-3 text-center text-2xl font-extrabold text-gray-700">
         INGRESO AL SISTEMA DE INFORMACIÓN
       </h1>
-      <form className="mt-8 max-w-sm">
+      <form className="mt-auto max-w-sm">
         <div>
-          <div className="flex m-10 justify-center">
+          <div className="flex m-auto justify-center">
             <ImagenLogo />
           </div>
           <div className="text-xl text-">
@@ -61,7 +61,7 @@ const Login = () => {
         <div className="flex justify-center m-5">
           <Link to="/">¿Has olvidado tu Contraseña?</Link>
         </div>
-        <div className="flex justify-around">
+        <div className="flex justify-around mb-5">
           <div>¿Aún no tienes cuenta?</div>
           <div className="font-bold">
             <Link to="/register">Registrate</Link>

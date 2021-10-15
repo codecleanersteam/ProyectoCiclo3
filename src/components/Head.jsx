@@ -8,7 +8,7 @@ const Head = () => {
       <div>
         <ul className="flex justify-between">
           <li>
-            <Link to="/sale">
+            <Link to="/">
               <div className="text-white p-2">
                 <LogoSmall />
               </div>
