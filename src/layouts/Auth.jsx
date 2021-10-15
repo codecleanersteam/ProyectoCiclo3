@@ -13,7 +13,7 @@ const Auth = ({ children }) => {
         <main className="h-full w-full">
           <div className="pt-2 pl-4">
             <Link to="/">
-              <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
+              <FontAwesomeIcon className="fill-current text-blue-400" icon={faHome}></FontAwesomeIcon>
             </Link>
             {/* <Logo/> */}
             {children}
