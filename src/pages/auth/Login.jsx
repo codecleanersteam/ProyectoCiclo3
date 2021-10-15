@@ -5,7 +5,7 @@ import ImagenLogo from "components/ImagenLogo";
 
 const Login = () => {
   return (
-    <div className="flex w-full flex-col items-center">
+    <div className="flex w-full flex-col items-center mt-10">
       <h1 className="m-3 text-center text-2xl font-extrabold text-gray-700">
         INGRESO AL SISTEMA DE INFORMACIÓN
       </h1>

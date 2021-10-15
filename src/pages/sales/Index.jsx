@@ -1,28 +1,44 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Sale = () => {
-    return (
-        < div className="flex flex-col w-full h-full" >
-            <div className="flex p-7 justify-center font-bold text-xl">ADMINISTRADOR DE VENTAS</div>
-            <div className="flex p-7 justify-center">Seleccione la tarea que desea realizar:</div>
-            <div className="flex w-full h-full justify-center">
-                <ul className="flex flex-col justify-center">
-                    <li>
-                        <button>Registrar Venta Nueva</button>
-                    </li>
-                    <li>
-                        <button>Ver Lista de Ventas</button>
-                    </li>
-                    <li>
-                        <button>Buscar Venta</button>
-                    </li>
-                    <li>
-                        <button>Modificar/Actualizar Venta</button>
-                    </li>
-                </ul>
-            </div>
-        </div>)
-        ;
-}
+  return (
+    <div className="flex flex-col w-full h-full">
+      <div className="flex p-7 justify-center font-bold text-xl mb-20">
+        ADMINISTRADOR DE VENTAS
+      </div>
+      <ul className="w-full text-center grid grid-cols-2 gap-10">
+        <li>
+          <Link to="/sale/add">
+            <button className="bg-blue-400 h-16 w-72 rounded-md hover:bg-blue-700 hover:text-white">
+              Registrar Venta Nueva
+            </button>
+          </Link>
+        </li>
+        <li>
+          <Link to="/sale/list">
+            <button className="bg-blue-400 h-16 w-72 rounded-md hover:bg-blue-700 hover:text-white">
+              Ver Lista de Ventas
+            </button>
+          </Link>
+        </li>
+        <li>
+          <Link to="/sale/search">
+            <button className="bg-blue-400 h-16 w-72 rounded-md hover:bg-blue-700 hover:text-white">
+              Buscar Venta
+            </button>
+          </Link>
+        </li>
+        <li>
+          <Link to="/sale/modify">
+            <button className="bg-blue-400 h-16 w-72 rounded-md hover:bg-blue-700 hover:text-white">
+              Modificar/Actualizar Venta
+            </button>
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+};
 
-export default Sale
+export default Sale;
