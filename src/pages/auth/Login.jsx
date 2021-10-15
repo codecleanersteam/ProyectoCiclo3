@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Google from "media/google_logo.png";
+import ImagenLogo from "components/ImagenLogo";
 
 const Login = () => {
   return (
@@ -10,7 +11,9 @@ const Login = () => {
       </h1>
       <form className="mt-8 max-w-sm">
         <div>
-          <div className="flex m-20 justify-center">Logo</div>
+          <div className="flex m-10 justify-center">
+            <ImagenLogo />
+          </div>
           <div className="text-xl text-">
             Inicia Sesión en tu Cuenta de CCTech
           </div>
