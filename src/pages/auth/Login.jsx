@@ -11,7 +11,7 @@ const Login = () => {
       </h1>
       <form className="mt-auto max-w-sm">
         <div>
-          <div className="flex m-auto justify-center">
+          <div className="flex m-auto justify-center sm:my-2 md:my-5 lg: xl:my-10 2xl:my-16">
             <ImagenLogo />
           </div>
           <div className="text-xl text-">
