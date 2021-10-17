@@ -107,6 +107,22 @@ const SearchSale = () => {
           <div></div>
         </div>
       </div>
+      <div className="flex justify-center">
+        <div>
+          <Link to="/sale/">
+            <button className="my-5 py-5 sm:w-40 md:w-72 bg-blue-300 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-blue-500 hover:text-white rounded-md shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14">
+              Regresar
+            </button>
+          </Link>
+        </div>
+        <div>
+          <Link to="/sale/search">
+            <button className="my-5 py-5 sm:w-40 md:w-72 bg-blue-300 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-blue-500 hover:text-white rounded-md shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14">
+              Nueva Búsqueda
+            </button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
