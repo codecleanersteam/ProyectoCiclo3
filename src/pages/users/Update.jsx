@@ -2,164 +2,93 @@ import React from 'react'
 
 const Update = () => {
 	return (
-		<div class="w-full h-full flex items-center justify-center flex-col">
-			<div class="pb-5 space-y-10">
-				<h1> ADMINISTRADOR DE USUARIOS</h1>
-			</div>
-			<form class="w-full flex items-center justify-center ">
-				<div class="flex items-center justify-center bg-transparent">
-					<div class="col-span-12">
-						<div class="overflow-auto lg:overflow-visible">
-							<div class="flex lg:justify-between border-b-2 border-fuchsia-900 pb-1">
-								<div class="text-start flex-auto justify-start">
-									<input
-										type="text"
-										name="name"
-										placeholder="Search..."
-										class="
-										w-1/3
-										py-2
-										border-b-2 border-blue-600
-										outline-none
-										focus:border-yellow-400" 
-									/>
-									<div>
-										<div class="space-x-4 flex justify-end">
-											<a href="#">
-												<button
-													class="
-													bg-blue-500
-													hover:bg-blue-700
-													text-white
-													py-1
-													px-3
-													sm
-													rounded-full">
-													Todos
-												</button>
-											</a>
-											<a href="#">
-												<button
-													class="
-													bg-blue-500
-													hover:bg-blue-700
-													text-white
-													py-1
-													px-3
-													sm
-													rounded-full">
-													Administrador
-												</button>
-											</a>
-											<a href="#">
-												<button
-													class="
-												bg-blue-500
-												hover:bg-blue-700
-												text-white
-												py-1
-												px-3
-												sm
-												rounded-full">
-												Usuario
-												</button>
-											</a>
-										</div>
-									</div>
-									<table class="table text-gray-400 border-separate space-y-6 text-sm">
-										<thead class="bg-blue-500 text-white">
-											<tr>
-												<th class="p-3">ID</th>
-												<th class="p-3 text-left">Nombre</th>
-												<th class="p-3 text-left">Phone</th>
-												<th class="p-3 text-left">Rol</th>
-												<th class="p-3 text-left">Estado</th>
-												<th class="p-3 text-left">Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="bg-blue-200 lg:text-black">
-												<td class="p-3 font-medium capitalize">Nombre</td>
-												<td class="p-3">@gmail.com</td>
-												<td class="p-3">01648349009</td>
-												<td class="p-3 uppercase">admin</td>
-												<td class="p-3">
-													<span class="bg-green-400 text-gray-50 rounded-md px-2">
-														ACTIVO
-													</span>
-												</td>
-												<td class="p-3">
-													<a href="#" class="text-gray-500 hover:text-gray-100 mr-2">
-														<i class="material-icons-outlined text-base">Visibilidad</i>
-													</a>
-													<a href="#" class="text-yellow-400 hover:text-gray-100 mx-2">
-														<i class="material-icons-outlined text-base">Editar</i>
-													</a>
-													<a
-														href="#"
-														class="text-red-400 hover:text-gray-100 ml-2">
-														<i class="material-icons-round text-base">Eliminar</i>
-													</a>
-												</td>
-											</tr>
-											<tr class="bg-blue-200 lg:text-black">
-												<td class="p-3 font-medium capitalize">NombreoID</td>
-												<td class="p-3">@gmail.com</td>
-												<td class="p-3">01648349009</td>
-												<td class="p-3 uppercase">user</td>
-												<td class="p-3">
-													<span class="bg-green-400 text-gray-50 rounded-md px-2">   
-													ACTIVE
-													</span>
-												</td>
-												<td class="p-3">
-													<a href="#" class="text-gray-500 hover:text-gray-100 mr-2">
-														<i class="material-icons-outlined text-base">Visibilidad</i>
-													</a>
-													<a href="#" class="text-yellow-400 hover:text-gray-100 mx-2">
-														<i class="material-icons-outlined text-base">Editar</i>
-													</a>
-													<a
-														href="#"
-														class="text-red-400 hover:text-gray-100 ml-2"
-													>
-														<i class="material-icons-round text-base">Eliminar</i>
-													</a>
-												</td>
-											</tr>
-											<tr class="bg-blue-200 lg:text-black">
-												<td class="p-3 font-medium capitalize">NombreoID</td>
-												<td class="p-3">@gmail.com</td>
-												<td class="p-3">01648349010</td>
-												<td class="p-3 uppercase">admin</td>
-												<td class="p-3">
-													<span class="bg-green-400 text-gray-50 rounded-md px-2">
-														ACTIVE
-													</span>
-												</td>
-												<td class="p-3">
-													<a href="#" class="text-gray-500 hover:text-gray-100 mr-2">
-														<i class="material-icons-outlined text-base">Visibilidad</i>
-													</a>
-													<a href="#" class="text-yellow-400 hover:text-gray-100 mx-2">
-														<i class="material-icons-outlined text-base">Editar</i>
-													</a>
-													<a
-														href="#"
-														class="text-red-400 hover:text-gray-100 ml-2">
-														<i class="material-icons-round text-base">Eliminar</i>
-													</a>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
+		<div className="flex flex-col w-full h-full">
+      <div className="flex justify-center m-10 text-2xl  font-bold">
+        ADMINISTRADOR DE USUARIOS
+      </div>
+      <div className="flex bg-gray-100 justify-center pt-5">
+        <div></div>
+        <div>
+          <div className="px-10 py-3 text-xl">Lista de Usuarios</div>
+          <div className="flex pl-10">
+            <table>
+              <thead>
+                <th className="px-1 py-2 w-32">ID. Usuario</th>
+                <th className="px-1 py-2 w-80">Nombre</th>
+                <th className="px-1 py-2 w-36">Rol</th>
+                <th className="px-1 py-2 w-36">Estado</th>
+              </thead>
+              <tbody className="overflow-y-scroll">
+                <tr>
+                  <td className="text-center">V0001</td>
+                  <td className="text-center">Mauricio Cendales</td>
+                  <td className="text-center">10000</td>
+                  <td className="text-center">En Proceso</td>
+                </tr>
+                <tr>
+                  <td className="text-center">V0002</td>
+                  <td className="text-center">Daniela Rodriguez</td>
+                  <td className="text-center">35000</td>
+                  <td className="text-center">Entregada</td>
+                </tr>
+                <tr>
+                  <td className="text-center">V0003</td>
+                  <td className="text-center">William Santamaria</td>
+                  <td className="text-center">17000</td>
+                  <td className="text-center">Cancelada</td>
+                </tr>
+                <tr>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                </tr>
+                <tr>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                </tr>
+                <tr>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                  <td className="text-center">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div></div>
+        </div>
+      </div>
+
+      <div className="flex justify-center">
+        <div>
+          {/* <Link to="/sale/"> */}
+            <button className="my-5 py-5 sm:w-40 md:w-72 bg-blue-300 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-blue-500 hover:text-white rounded-md shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14">
+              Regresar
+            </button>
+          {/* </Link> */}
+        </div>
+        <div>
+          {/* <Link to="/sale/add"> */}
+            <button className="my-5 py-5 sm:w-40 md:w-72 bg-blue-300 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-blue-500 hover:text-white rounded-md shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14">
+              Agregar Nuevo Usuario
+            </button>
+          {/* </Link> */}
+        </div>
+        <div>
+          {/* <Link to="/sale/search"> */}
+            <button className="my-5 py-5 sm:w-40 md:w-72 bg-blue-300 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-blue-500 hover:text-white rounded-md shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14">
+              Buscar Usuario
+            </button>
+          {/* </Link> */}
+        </div>
+      </div>
+    </div>
+
 	)
 }
 
