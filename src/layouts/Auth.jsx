@@ -11,9 +11,12 @@ const Auth = ({ children }) => {
     <div className="flex flex-col justify-between h-screen w-full">
       <div className="h-full flex flex-col items-center">
         <main className="h-full w-full">
-          <div className="pt-2 pl-4">
+          <div className="h-full w-full pt-2 pl-4">
             <Link to="/">
-              <FontAwesomeIcon className="fill-current text-blue-400" icon={faHome}></FontAwesomeIcon>
+              <FontAwesomeIcon
+                className="fill-current text-blue-400"
+                icon={faHome}
+              ></FontAwesomeIcon>
             </Link>
             {/* <Logo/> */}
             {children}

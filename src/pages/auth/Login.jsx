@@ -5,13 +5,13 @@ import ImagenLogo from "components/ImagenLogo";
 
 const Login = () => {
   return (
-    <div className="flex w-full flex-col items-center">
+    <div className="flex w-full flex-col items-center mt-10">
       <h1 className="m-3 text-center text-2xl font-extrabold text-gray-700">
         INGRESO AL SISTEMA DE INFORMACIÓN
       </h1>
       <form className="mt-auto max-w-sm">
         <div>
-          <div className="flex m-auto justify-center">
+          <div className="flex m-auto justify-center sm:my-2 md:my-5 lg: xl:my-10 2xl:my-16">
             <ImagenLogo />
           </div>
           <div className="text-xl text-">
