@@ -7,46 +7,46 @@ const ListProduct = () => {
               Administración de Productos
             </div>
             <p className="pt-12 pl-12 text-2xl">Lista de Productos</p>
-            <div className="border-4 border-black border-double place-content-center w-full pr-32 pl-32 pt-20 pb-16">
+            <div className="place-content-center w-full pr-32 pl-32 pt-20 pb-16">
               <table className="table-fixed border-2 w-full">
                 <thead>
-                  <tr className="bg-blue-300 h-14">
-                    <th className="w-1/4">Identificador</th>
-                    <th className="w-1/4">Descripción</th>
-                    <th className="w-1/4">Valor Unitario</th>
-                    <th className="w-1/4">Estado</th>
+                  <tr className="h-14">
+                    <th className="w-1/4 border border-black">Identificador</th>
+                    <th className="w-1/4 border border-black">Descripción</th>
+                    <th className="w-1/4 border border-black">Valor Unitario</th>
+                    <th className="w-1/4 border border-black">Estado</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="bg-blue-100 h-10">
-                    <td className="text-center">001</td>
-                    <td>Producto 1</td>
-                    <td className="text-center">50000</td>
-                    <td className="text-center">Disponible</td>
+                  <tr className="h-10">
+                    <td className="text-center border border-black">001</td>
+                    <td className=" border border-black">Producto 1</td>
+                    <td className="text-center border border-black">50000</td>
+                    <td className="text-center border border-black">Disponible</td>
                   </tr>
-                  <tr class="bg-blue-200 h-10">
-                    <td className="text-center">002</td>
-                    <td>Producto 2</td>
-                    <td className="text-center">112000</td>
-                    <td className="text-center">Disponibible</td>
+                  <tr className="h-10">
+                    <td className="text-center border border-black">002</td>
+                    <td className=" border border-black">Producto 2</td>
+                    <td className="text-center border border-black">112000</td>
+                    <td className="text-center border border-black">Disponibible</td>
                   </tr>
-                  <tr className="bg-blue-100 h-10">
-                    <td className="text-center">003</td>
-                    <td>Producto 3</td>
-                    <td className="text-center">1524000</td>
-                    <td className="text-center">No Disponible</td>
+                  <tr className="h-10">
+                    <td className="text-center border border-black">003</td>
+                    <td className=" border border-black">Producto 3</td>
+                    <td className="text-center border border-black">1524000</td>
+                    <td className="text-center border border-black">No Disponible</td>
                   </tr>
-                  <tr className="bg-blue-200 h-10">
-                    <td className="text-center">004</td>
-                    <td>Producto 4</td>
-                    <td className="text-center">1124000</td>
-                    <td className="text-center">Disponible</td>
+                  <tr className="h-10">
+                    <td className="text-center border border-black">004</td>
+                    <td className=" border border-black">Producto 4</td>
+                    <td className="text-center border border-black">1124000</td>
+                    <td className="text-center border border-black">Disponible</td>
                   </tr>
-                  <tr className="bg-blue-100 h-10">
-                    <td className="text-center">005</td>
-                    <td>Producto 5</td>
-                    <td className="text-center">15000</td>
-                    <td className="text-center">No Disponible</td>
+                  <tr className="h-10">
+                    <td className="text-center border border-black">005</td>
+                    <td className=" border border-black">Producto 5</td>
+                    <td className="text-center border border-black">15000</td>
+                    <td className="text-center border border-black">No Disponible</td>
                   </tr>
                 </tbody>
               </table>
