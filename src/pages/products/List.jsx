@@ -33,7 +33,7 @@ const ListProduct = () => {
   }
   ]
 
-  const [celulares, setCelulares] = useState([])
+  const [celulares, setCelulares] = useState([]);
   useEffect(() => {
     setCelulares(celularesBackend);
   }, []);
