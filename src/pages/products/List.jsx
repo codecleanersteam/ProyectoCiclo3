@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const ListProduct = () => {
 
-  const celularesBackend = [{
+  const productosBackend = [{
     nombre: "iphone 13",
     marca: "Apple",
     modelo: "A1260",
@@ -33,17 +33,17 @@ const ListProduct = () => {
   }
   ]
 
-  const [celulares, setCelulares] = useState([]);
+  const [productos, setproductos] = useState([]);
   useEffect(() => {
-    setCelulares(celularesBackend);
+    setproductos(productosBackend);
   }, []);
 
   return <div className="place-content-center pl-60 pr-60">
     <div className="text-5xl font-semibold text-center mt-4">
       Administración de Productos
     </div>
-    <p className="pt-12 pl-12 text-2xl">Lista de Celulares</p>
-    <TablaCelulares listaCelulares={celulares} />
+    <p className="pt-12 pl-12 text-2xl">Lista de Productos</p>
+    <Tablaproductos listaproductos={productos} />
     <div className="grid grid-cols-2 place-content-center w-full pr-32 pl-32 pt-12 pb-20">
       <div className="text-center">
         <Link to="/product">
@@ -63,7 +63,7 @@ const ListProduct = () => {
     ;
 };
 
-const TablaCelulares = ({ listaCelulares }) => {
+const Tablaproductos = ({ listaproductos }) => {
   return (
     <div className="place-content-center w-full pr-32 pl-32 pt-20 pb-16">
       <table className="border-2 w-full">
@@ -77,14 +77,14 @@ const TablaCelulares = ({ listaCelulares }) => {
           </tr>
         </thead>
         <tbody>
-          {listaCelulares.map((celular) => {
+          {listaproductos.map((producto) => {
             return (
               <tr className="h-10">
-                <td className="text-center border border-black">{celular.nombre}</td>
-                <td className=" border border-black">{celular.marca}</td>
-                <td className="text-center border border-black">{celular.modelo}</td>
-                <td className="text-center border border-black">{celular.valorunitario}</td>
-                <td className="text-center border border-black">{celular.estado}</td>
+                <td className="text-center border border-black">{producto.nombre}</td>
+                <td className=" border border-black">{producto.marca}</td>
+                <td className="text-center border border-black">{producto.modelo}</td>
+                <td className="text-center border border-black">{producto.valorunitario}</td>
+                <td className="text-center border border-black">{producto.estado}</td>
               </tr>
             );
           })}
