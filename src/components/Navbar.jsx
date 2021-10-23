@@ -34,7 +34,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <DarkModeSwitch/>
+          <DarkModeSwitch estilo={"px-20 py-5 hover:bg-blue-400 "}/>
         </li>
         <li>
           <Link to="/login">

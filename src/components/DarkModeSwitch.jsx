@@ -1,18 +1,23 @@
 import React from "react";
 import { useDarkMode } from "context/darkMode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const DarkModeSwitch = () => {
+const DarkModeSwitch = ({estilo, icono}) => {
   const { darkMode, setDarkMode } = useDarkMode();
   return (
     <button
       onClick={() => {
         setDarkMode(!darkMode);
       }}
-      className={`px-20 py-5 hover:bg-${darkMode ? "white" : "black"} text-${
-        darkMode ? "black" : "white"
-      }`}
+      className={estilo}
     >
-      {darkMode ? "Desactivar" : "Activar"} Modo Oscuro
+              <div className="flex justify-center w-10">
+          <FontAwesomeIcon
+            className="flex fill-current"
+            icon={icono}
+          ></FontAwesomeIcon>
+        </div>
+      {darkMode ? "Modo Claro" : "Modo Oscuro"}
     </button>
   );
 };

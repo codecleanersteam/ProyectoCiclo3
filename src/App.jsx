@@ -5,6 +5,7 @@ import Public from "layouts/Public";
 import Auth from "layouts/Auth";
 import Private from "layouts/Private";
 import Index from "pages/Index";
+import Profile from "pages/Profile";
 import Login from "pages/auth/Login";
 import Register from "pages/auth/Register";
 import Pending from "pages/auth/Pending";
@@ -20,7 +21,6 @@ import ListSale from "pages/sales/List";
 import ModifySale from "pages/sales/Modify";
 import SearchSale from "pages/sales/Search";
 import User from "pages/users/Index";
-import Profile from "pages/users/Profile";
 import Update from "pages/users/Update";
 import About from "pages/About";
 import Description from "pages/Description";
@@ -60,13 +60,13 @@ function App() {
                 "/product/list",
                 "/product/search",
                 "/product/modify",
+                "/profile",
                 "/sale",
                 "sale/add",
                 "/sale/list",
                 "/sale/search",
                 "/sale/modify",
                 "/user",
-                "/user/profile",
                 "/user/update",
               ]}
             >
@@ -90,6 +90,9 @@ function App() {
                   <Route path="/product">
                     <Product />
                   </Route>
+                  <Route path="/profile">
+                    <Profile />
+                  </Route>
                   <Route path="/sale/add">
                     <AddSale />
                   </Route>
@@ -105,9 +108,6 @@ function App() {
                   <Route path="/sale">
                     <Sale />
                   </Route>
-                  <Route path="/user/profile">
-                    <Profile />
-                  </Route>
                   <Route path="/user/update">
                     <Update />
                   </Route>
@@ -117,7 +117,7 @@ function App() {
                 </Switch>
               </Private>
             </Route>
-            <Route path={["/", "/about, /description, /help"]}>
+            <Route path={["/", "/about", "/description", "/help"]}>
               <Public>
                 <Switch>
                   <Route path="/about">

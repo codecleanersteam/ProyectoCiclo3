@@ -1,5 +1,5 @@
 import React from "react";
-import ImagenLogo from "../../components/ImagenLogo";
+import ImagenLogo from "../components/ImagenLogo";
 const Profile = () => {
   return(
     <form class="w-full h-full flex items-center justify-center flex-col ">
