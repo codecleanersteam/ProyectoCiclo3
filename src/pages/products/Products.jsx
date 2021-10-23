@@ -2,44 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDarkMode } from "context/darkMode";
+import axios from "axios";
 
-const productosBackend = [
-  {
-    nombre: "iphone 20",
-    marca: "Apple",
-    modelo: "A1260",
-    valorunitario: "4599000",
-    estado: "Disponible",
-  },
-  {
-    nombre: "Galaxy S21",
-    marca: "Samsung",
-    modelo: " SM-G998B",
-    valorunitario: "4199000",
-    estado: "Disponible",
-  },
-  {
-    nombre: "Mi 11",
-    marca: "Samsung",
-    modelo: "Ultra",
-    valorunitario: "2799000",
-    estado: "Disponible",
-  },
-  {
-    nombre: "Nokia 1100",
-    marca: "Nokia",
-    modelo: "1100",
-    valorunitario: "120000",
-    estado: "No Disponible",
-  },
-  {
-    nombre: "iphone 12",
-    marca: "Apple",
-    modelo: "A1170",
-    valorunitario: "3999000",
-    estado: "Disponible",
-  },
-];
+//Aqui iban los datos de la tabla incluidos en el código.
 
 const Products = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -48,10 +13,27 @@ const Products = () => {
   const [colorBoton, setColorBoton] = useState("blue-300");
   const { darkMode } = useDarkMode();
 
+  //useEffect para lectura de productos desde la base de datos.
   useEffect(() => {
-    setProductos(productosBackend);
-  }, []);
+    const obtenerProductos = async () => {
+      const options = { method: "GET", url: "https://ccteam.com/addproduct" }; //Cambiar URL
 
+      await axios
+        .request(options)
+        .then(function (response) {
+          //console.log(response.data);
+          setProductos(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    };
+    if (mostrarTabla) {
+      obtenerProductos();
+    }
+  }, [mostrarTabla]);
+
+  //useEffect para cambiar el color y el texto del botón.
   useEffect(() => {
     if (mostrarTabla) {
       setTextoBoton("Nuevo Producto");
@@ -197,16 +179,41 @@ const TablaProductos = ({ listaProductos }) => {
 
 const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
   const form = useRef(null);
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     const fd = new FormData(form.current);
     const nuevoProducto = {};
     fd.forEach((value, key) => {
       nuevoProducto[key] = value;
     });
+    // Código para crear producto y enviar la información a la base de datos.
+
+    const options = {
+      method: "POST",
+      url: "https://ccteam.com/addproduct", //Hay que cambiar esta URL
+      headers: { "Content-Type": "application/json" },
+      data: {
+        nombre: nuevoProducto.nombre,
+        marca: nuevoProducto.marca,
+        modelo: nuevoProducto.modelo,
+        valorunitario: nuevoProducto.valorunitario,
+        estado: nuevoProducto.estado,
+      },
+    };
+// Los valores anteriores de los datos que se envían, deberán con toda seguridad ser cambiados y actualizados, aquí se puede producir un error.
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("Producto agregado exitosamente");
+      })
+      .catch(function (error) {
+        console.error(error);
+        toast.error("Se ha producido un error creando el producto");
+      });
+
     setMostrarTabla(true);
-    setProductos([...listaProductos, nuevoProducto]);
-    toast.success("Producto agregado exitosamente");
   };
   const { darkMode } = useDarkMode();
 
@@ -223,7 +230,7 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
             <label>Nombre o Descripción</label>
             <br />
             <input
-              name="nombre"
+              name="nombre" //Este valor y todos los nombres de los input con seguridad deberán cambiarse.
               className="appeareance-none relative block w-full px-3 py-2 border border-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-blue-600 focus:border-blue-600 focus:z-10 sm:text-sm font-bold my-2"
               type="text"
               required
