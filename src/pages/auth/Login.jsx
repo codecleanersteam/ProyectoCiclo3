@@ -48,7 +48,7 @@ const Login = () => {
           </label>
         </div>
         <div className="flex justify-center">
-          <Link to="/product">
+          <Link to="/products">
             <button
               className="flex bg-blue-500 text-white py-2 px-16"
               type="submit"

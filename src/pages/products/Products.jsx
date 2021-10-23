@@ -45,7 +45,7 @@ const Products = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
   const [productos, setProductos] = useState([]);
   const [textoBoton, setTextoBoton] = useState("Nuevo Producto");
-  const [colorBoton, setColorBoton] = useState("green");
+  const [colorBoton, setColorBoton] = useState("blue-300");
   const { darkMode } = useDarkMode();
 
   useEffect(() => {
@@ -55,10 +55,10 @@ const Products = () => {
   useEffect(() => {
     if (mostrarTabla) {
       setTextoBoton("Nuevo Producto");
-      setColorBoton("blue");
+      setColorBoton("blue-700");
     } else {
       setTextoBoton("Lista de Productos");
-      setColorBoton("green");
+      setColorBoton("blue-400");
     }
   }, [mostrarTabla]);
 
@@ -76,7 +76,7 @@ const Products = () => {
           onClick={() => {
             setMostrarTabla(!mostrarTabla);
           }}
-          className={`text-white bg-${colorBoton}-500 p-5 rounded-full -6 w-28 self-end`}
+          className={`text-white bg-${colorBoton} rounded-md self-end sm:w-40 md:w-72 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-gray-700 hover:text-white shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14  text-white h-14 w-3/4 text-xl`}
         >
           {textoBoton}
         </button>
@@ -103,7 +103,7 @@ const TablaProductos = ({ listaProductos }) => {
     console.log("Este es el listado de productos en la Tabla", listaProductos);
   });
   return (
-    <div className="place-content-center h-full w-full pr-32 pl-32 pt-20 pb-16">
+    <div className="place-content-center h-full w-full pr-32 pl-32 pb-16">
       <p className="my-5 text-2xl">Lista de Productos</p>
       <table
         className={`border-2 border-${darkMode ? "white" : "black"} w-full`}
@@ -212,7 +212,7 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
 
   return (
     <div className="place-content-center pl-60 pr-60">
-      <p className="pt-12 pl-12 text-2xl my-5">Registrar Nuevo Producto</p>
+      <p className="pl-12 text-2xl my-5">Registrar Nuevo Producto</p>
       <form ref={form} onSubmit={submitForm}>
         <div
           className={`grid grid-cols-3 border-4 border-double border-${
