@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDarkMode } from "context/darkMode";
@@ -47,7 +46,7 @@ const Products = () => {
   const [productos, setProductos] = useState([]);
   const [textoBoton, setTextoBoton] = useState("Nuevo Producto");
   const [colorBoton, setColorBoton] = useState("green");
-  const { darkMode } = useDarkMode()
+  const { darkMode } = useDarkMode();
 
   useEffect(() => {
     setProductos(productosBackend);
@@ -64,7 +63,11 @@ const Products = () => {
   }, [mostrarTabla]);
 
   return (
-    <div className={`place-content-center pl-60 pr-60 bg-${darkMode ? "black":"white"} text-${darkMode ? "white":"black"}`}>
+    <div
+      className={`place-content-center h-full w-full pl-48 pr-48 bg-${
+        darkMode ? "black" : "white"
+      } text-${darkMode ? "white" : "black"}`}
+    >
       <div className="text-5xl font-semibold text-center mt-4">
         <h2>Administración de Productos</h2>
       </div>
@@ -89,59 +92,98 @@ const Products = () => {
         />
       )}
 
-      {/* <div className="grid grid-cols-2 place-content-center w-full pr-32 pl-32 pt-12 pb-20">
-            <div className="text-center">
-                <Link to="/product">
-                    <button className="bg-blue-500 text-white rounded-lg h-14 w-1/2 text-xl">
-                        Cancelar
-                    </button>
-                </Link>
-            </div>
-            <div className="text-center">
-                <button className="bg-blue-500 text-white rounded-lg h-14 w-1/2 text-xl"
-                    type="submit">
-                    Buscar Producto
-                </button>
-            </div>
-        </div> */}
       <ToastContainer position="bottom-center" autoClose={5000} />
     </div>
   );
 };
 
 const TablaProductos = ({ listaProductos }) => {
-const {darkMode} = useDarkMode();
+  const { darkMode } = useDarkMode();
   useEffect(() => {
     console.log("Este es el listado de productos en la Tabla", listaProductos);
   });
   return (
-    <div className="place-content-center w-full pr-32 pl-32 pt-20 pb-16">
+    <div className="place-content-center h-full w-full pr-32 pl-32 pt-20 pb-16">
       <p className="my-5 text-2xl">Lista de Productos</p>
-      <table className="border-2 w-full">
+      <table
+        className={`border-2 border-${darkMode ? "white" : "black"} w-full`}
+      >
         <thead>
           <tr className="h-14">
-            <th className="w-1/4 border border-black">Nombre o Descripción</th>
-            <th className="w-1/4 border border-black">Marca</th>
-            <th className="w-1/4 border border-black">Modelo</th>
-            <th className="w-1/4 border border-black">Valor Unitario</th>
-            <th className="w-1/4 border border-black">Estado</th>
+            <th
+              className={`w-1/4 border border-${
+                darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
+            >
+              Nombre o Descripción
+            </th>
+            <th
+              className={`w-1/4 border border-${
+                darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
+            >
+              Marca
+            </th>
+            <th
+              className={`w-1/4 border border-${
+                darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
+            >
+              Modelo
+            </th>
+            <th
+              className={`w-1/4 border border-${
+                darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
+            >
+              Valor Unitario
+            </th>
+            <th
+              className={`w-1/4 border border-${
+                darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
+            >
+              Estado
+            </th>
           </tr>
         </thead>
         <tbody>
           {listaProductos.map((producto) => {
             return (
               <tr className="h-14">
-                <td className="text-center border border-black">
+                <td
+                  className={`text-center border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
                   {producto.nombre}
                 </td>
-                <td className=" border border-black">{producto.marca}</td>
-                <td className="text-center border border-black">
+                <td
+                  className={`text-center border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
+                  {producto.marca}
+                </td>
+                <td
+                  className={`text-center border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
                   {producto.modelo}
                 </td>
-                <td className="text-center border border-black">
+                <td
+                  className={`text-center border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
                   {producto.valorunitario}
                 </td>
-                <td className="text-center border border-black">
+                <td
+                  className={`text-center border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
                   {producto.estado}
                 </td>
               </tr>
@@ -166,13 +208,17 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
     setProductos([...listaProductos, nuevoProducto]);
     toast.success("Producto agregado exitosamente");
   };
-  const {darkMode} = useDarkMode();
+  const { darkMode } = useDarkMode();
 
   return (
     <div className="place-content-center pl-60 pr-60">
-      <p className="pt-24 pl-12 text-2xl">Registrar Nuevo Producto</p>
+      <p className="pt-12 pl-12 text-2xl my-5">Registrar Nuevo Producto</p>
       <form ref={form} onSubmit={submitForm}>
-        <div className="grid grid-cols-3 border-4 border-double border-black items-center justify-center w-full pr-32 pl-32 pt-20 pb-20">
+        <div
+          className={`grid grid-cols-3 border-4 border-double border-${
+            darkMode ? "white" : "black"
+          } items-center justify-center w-full pr-32 pl-32 pt-20 pb-20`}
+        >
           <div className="m-5">
             <label>Nombre o Descripción</label>
             <br />
@@ -230,35 +276,13 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
             </select>
           </div>
         </div>
-        <div className="grid grid-cols-3 place-content-center w-full pr-32 pl-32 pt-12 pb-20">
-          <div className="p-4 text-center">
-            <Link to="/product">
-              <button
-                className="bg-blue-500 text-white rounded-lg h-14 w-3/4 text-xl"
-                type="button"
-              >
-                Cancelar
-              </button>
-            </Link>
-          </div>
-          <div className="p-4 text-center">
-            <Link to="/product/list">
-              <button
-                className="bg-blue-500 text-white rounded-lg h-14 w-3/4 text-xl"
-                type="button"
-              >
-                Ver Lista de Productos
-              </button>
-            </Link>
-          </div>
-          <div className="p-4 text-center">
-            <button
-              className="bg-blue-500 text-white rounded-lg h-14 w-3/4 text-xl"
-              type="submit"
-            >
-              Registrar Producto
-            </button>
-          </div>
+        <div className="flex flex-col justify-center items-center p-4 text-center">
+          <button
+            className="sm:w-40 md:w-72 bg-blue-500 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-blue-700 hover:text-white shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14  text-white rounded-lg h-14 w-3/4 text-xl"
+            type="submit"
+          >
+            Registrar Producto
+          </button>
         </div>
       </form>
     </div>
