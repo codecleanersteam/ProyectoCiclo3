@@ -1,8 +1,10 @@
 import React from "react";
+import { useDarkMode } from "context/darkMode";
 
 const About = () => {
+  const {darkMode} = useDarkMode();
   return (
-    <div>
+    <div className={`w-full h-full bg-${darkMode ? "black":"white"} text-${darkMode ? "white":"black"}`}>
       <label>Somos Code Cleaners Team!!! Estamos conformados por:</label>
       <br />
       <label>Mauricio Cendales</label>

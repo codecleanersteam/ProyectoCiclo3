@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import DarkModeSwitch from "./DarkModeSwitch";
 import LogoSmall from "./LogoSmall";
 
 const Navbar = () => {
@@ -31,6 +32,9 @@ const Navbar = () => {
           <Link to="/help">
             <button className="px-20 py-5 hover:bg-blue-400 ">Ayuda</button>
           </Link>
+        </li>
+        <li>
+          <DarkModeSwitch/>
         </li>
         <li>
           <Link to="/login">

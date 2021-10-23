@@ -1,6 +1,7 @@
 import React from "react";
 import LogoSmall from "./LogoSmall";
 import { Link } from "react-router-dom";
+import DarkModeSwitch from "./DarkModeSwitch";
 
 const Head = () => {
   return (
@@ -34,6 +35,9 @@ const Head = () => {
                 Gestión de Usuarios
               </button>
             </Link>
+          </li>
+          <li>
+            <DarkModeSwitch />
           </li>
           <li>
             <Link to="/user/profile">
