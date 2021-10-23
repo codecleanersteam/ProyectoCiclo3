@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LogoSmall from "./LogoSmall";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DarkModeSwitch from "./DarkModeSwitch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +13,7 @@ import {
   faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDarkMode } from "context/darkMode";
+import useActiveRoute from "hooks/useActiveRoute";
 
 const Head = () => {
   const { darkMode } = useDarkMode();
@@ -69,17 +70,7 @@ const Head = () => {
 };
 
 const Ruta = ({ icono, ruta, nombre }) => {
-  const location = useLocation();
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    if (location.pathname.includes(ruta)) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  }, [location, ruta]);
-
+const isActive = useActiveRoute(ruta);
   return (
     <Link to={ruta}>
       <button
