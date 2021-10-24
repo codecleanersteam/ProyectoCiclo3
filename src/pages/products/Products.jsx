@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDarkMode } from "context/darkMode";
 import axios from "axios";
 import { nanoid } from "nanoid";
+import { Dialog, Tooltip } from "@material-ui/core";
 
 //Aqui iban los datos de la tabla incluidos en el código.
 
@@ -35,9 +36,8 @@ const Products = () => {
       obtenerProductos();
       setEjecutarConsulta(false);
     }
-  // }, [mostrarTabla]);
+    // }, [mostrarTabla]);
   }, [ejecutarConsulta]);
-    
 
   //useEffect para cambiar el color y el texto del botón.
   useEffect(() => {
@@ -89,82 +89,114 @@ const Products = () => {
 };
 
 const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
+  const [search, setSearch] = useState("");
   const { darkMode } = useDarkMode();
+  const [productosFiltrados, setProductosFiltrados] = useState(listaProductos);
+
   useEffect(() => {
-    console.log("Este es el listado de productos en la Tabla", listaProductos);
-  });
+    setProductosFiltrados(
+      listaProductos.filter((elemento) => {
+        return JSON.stringify(elemento)
+          .toLowerCase()
+          .includes(search.toLowerCase());
+      })
+    );
+  }, [search, listaProductos]);
+
   return (
     <div className="place-content-center h-full w-full pr-32 pl-32 pb-16">
+      <input
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Buscar Productos"
+        className="border-2 border-gray-700 px-5 py-3 rounded-md focus:outline-none focus:border-blue-500 font-semibold italic text-lg"
+      />
       <p className="my-5 text-2xl">Lista de Productos</p>
-      <table
-        className={`border-2 border-${
-          darkMode ? "white" : "black"
-        } w-full tabla`}
-      >
-        <thead>
-          <tr className="h-14">
-            <th
-              className={`w-1/4 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
-            >
-              Nombre o Descripción
-            </th>
-            <th
-              className={`w-1/4 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
-            >
-              Marca
-            </th>
-            <th
-              className={`w-1/4 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
-            >
-              Modelo
-            </th>
-            <th
-              className={`w-1/4 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
-            >
-              Valor Unitario
-            </th>
-            <th
-              className={`w-1/4 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
-            >
-              Estado
-            </th>
-            <th
-              className={`w-1/4 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
-            >
-              Tareas
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {listaProductos.map((producto) => {
-            return (
-              <FilaProducto
-                key={nanoid}
-                producto={producto}
-                setEjecutarConsulta={setEjecutarConsulta}
-              />
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="hidden md:block">
+        <table
+          className={`border-2 border-${
+            darkMode ? "white" : "black"
+          } w-full tabla`}
+        >
+          <thead>
+            <tr className="h-14">
+              <th
+                className={`w-1/4 border border-${
+                  darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
+              >
+                Nombre o Descripción
+              </th>
+              <th
+                className={`w-1/4 border border-${
+                  darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
+              >
+                Marca
+              </th>
+              <th
+                className={`w-1/4 border border-${
+                  darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
+              >
+                Modelo
+              </th>
+              <th
+                className={`w-1/4 border border-${
+                  darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
+              >
+                Valor Unitario
+              </th>
+              <th
+                className={`w-1/4 border border-${
+                  darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
+              >
+                Estado
+              </th>
+              <th
+                className={`w-1/4 border border-${
+                  darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
+              >
+                Tareas
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {productosFiltrados.map((producto) => {
+              return (
+                <FilaProducto
+                  key={nanoid}
+                  producto={producto}
+                  setEjecutarConsulta={setEjecutarConsulta}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div className="flex flex-col w-full m-2 md:hidden">
+        {productosFiltrados.map((el)=>{
+          return(
+            <div className="bg-gray-400 m-2 shadow-xl flex flex-col p-2 rounded-xl">
+              <span>{el.nombre}</span>
+              <span>{el.marca}</span>
+              <span>{el.modelo}</span>
+              <span>{el.valorunitario}</span>
+              <span>{el.estado}</span>
+            </div>
+          )
+        })}
+        </div>
     </div>
   );
 };
 
 const FilaProducto = ({ producto, setEjecutarConsulta }) => {
   const [edit, setEdit] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const { darkMode } = useDarkMode();
   const [infoNuevoProducto, setInfoNuevoProducto] = useState({
     nombre: producto.nombre,
@@ -218,6 +250,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
         console.error(error);
         toast.error("Error eliminando producto");
       });
+    setOpenDialog(false);
   };
 
   return (
@@ -342,21 +375,59 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
       <td>
         <div className="flex w-full justify-around">
           {edit ? (
-            <i
-              onClick={() => actualizarProducto()}
-              className="fas fa-check text-green-700 hover:text-green-500"
-            />
+            <>
+              <Tooltip tittle="Confirmar Edición" arrow placement="top">
+                <i
+                  onClick={() => actualizarProducto()}
+                  className="fas fa-check text-green-700 hover:text-green-500"
+                />
+              </Tooltip>
+              <Tooltip title="Cancelar Edición" arrow placement="top">
+                <i
+                  onClick={() => setEdit(!edit)}
+                  className="fas fa-ban text-yellow-700 hover:text-yellow-400"
+                />
+              </Tooltip>
+            </>
           ) : (
-            <i
-              onClick={() => setEdit(!edit)}
-              className="fas fa-pencil-alt text-yellow-700 hover:text-yellow-400"
-            />
+            <>
+              <Tooltip title="Editar Producto" arrow placement="top">
+                <i
+                  onClick={() => setEdit(!edit)}
+                  className="fas fa-pencil-alt text-yellow-700 hover:text-yellow-400"
+                />
+              </Tooltip>
+
+              <Tooltip title="Eliminar Producto" arrow placement="top">
+                <i
+                  onClick={() => setOpenDialog(true)}
+                  className="fas fa-trash text-red-700 hover:text-red-400"
+                />
+              </Tooltip>
+            </>
           )}
-          <i
-            onClick={() => eliminarProducto()}
-            className="fas fa-trash text-red-700 hover:text-red-400"
-          />
         </div>
+        <Dialog open={openDialog}>
+          <div className="p-8 flex flex-col">
+            <h1 className="text-gray-900 text-2xl font-bold">
+              ¿Está seguro de que quiere eliminar el producto?
+            </h1>
+            <div className="flex w-full justify-center my-4">
+              <button
+                onClick={() => eliminarProducto()}
+                className="mx-2 px-4 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md"
+              >
+                Si
+              </button>
+              <button
+                onClick={() => setOpenDialog(false)}
+                className="mx-2 px-4 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </Dialog>
       </td>
     </tr>
   );
