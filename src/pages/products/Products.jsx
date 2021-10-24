@@ -5,6 +5,7 @@ import { useDarkMode } from "context/darkMode";
 import axios from "axios";
 import { nanoid } from "nanoid";
 import { Dialog, Tooltip } from "@material-ui/core";
+import { obtenerProductos } from "utils/api";
 
 //Aqui iban los datos de la tabla incluidos en el código.
 
@@ -18,23 +19,9 @@ const Products = () => {
 
   //useEffect para lectura de productos desde la base de datos.
   useEffect(() => {
-    const obtenerProductos = async () => {
-      const options = { method: "GET", url: "https://ccteam.com/addproduct" }; //Cambiar URL
-
-      await axios
-        .request(options)
-        .then(function (response) {
-          //console.log(response.data);
-          setProductos(response.data);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    };
-    // if (mostrarTabla) {
+  // if (mostrarTabla) {
     if (ejecutarConsulta) {
-      obtenerProductos();
-      setEjecutarConsulta(false);
+      obtenerProductos(setProductos, setEjecutarConsulta);
     }
     // }, [mostrarTabla]);
   }, [ejecutarConsulta]);
