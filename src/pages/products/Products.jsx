@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDarkMode } from "context/darkMode";
 import axios from "axios";
+import { nanoid } from "nanoid";
 
 //Aqui iban los datos de la tabla incluidos en el código.
 
@@ -11,6 +12,7 @@ const Products = () => {
   const [productos, setProductos] = useState([]);
   const [textoBoton, setTextoBoton] = useState("Nuevo Producto");
   const [colorBoton, setColorBoton] = useState("blue-300");
+  const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
   const { darkMode } = useDarkMode();
 
   //useEffect para lectura de productos desde la base de datos.
@@ -28,10 +30,14 @@ const Products = () => {
           console.error(error);
         });
     };
-    if (mostrarTabla) {
+    // if (mostrarTabla) {
+    if (ejecutarConsulta) {
       obtenerProductos();
+      setEjecutarConsulta(false);
     }
-  }, [mostrarTabla]);
+  // }, [mostrarTabla]);
+  }, [ejecutarConsulta]);
+    
 
   //useEffect para cambiar el color y el texto del botón.
   useEffect(() => {
@@ -65,7 +71,10 @@ const Products = () => {
       </div>
 
       {mostrarTabla ? (
-        <TablaProductos listaProductos={productos} />
+        <TablaProductos
+          listaProductos={productos}
+          setEjecutarConsulta={setEjecutarConsulta}
+        />
       ) : (
         <AddProduct
           setMostrarTabla={setMostrarTabla}
@@ -79,7 +88,7 @@ const Products = () => {
   );
 };
 
-const TablaProductos = ({ listaProductos }) => {
+const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
   const { darkMode } = useDarkMode();
   useEffect(() => {
     console.log("Este es el listado de productos en la Tabla", listaProductos);
@@ -88,7 +97,9 @@ const TablaProductos = ({ listaProductos }) => {
     <div className="place-content-center h-full w-full pr-32 pl-32 pb-16">
       <p className="my-5 text-2xl">Lista de Productos</p>
       <table
-        className={`border-2 border-${darkMode ? "white" : "black"} w-full`}
+        className={`border-2 border-${
+          darkMode ? "white" : "black"
+        } w-full tabla`}
       >
         <thead>
           <tr className="h-14">
@@ -127,53 +138,227 @@ const TablaProductos = ({ listaProductos }) => {
             >
               Estado
             </th>
+            <th
+              className={`w-1/4 border border-${
+                darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
+            >
+              Tareas
+            </th>
           </tr>
         </thead>
         <tbody>
           {listaProductos.map((producto) => {
             return (
-              <tr className="h-14">
-                <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
-                >
-                  {producto.nombre}
-                </td>
-                <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
-                >
-                  {producto.marca}
-                </td>
-                <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
-                >
-                  {producto.modelo}
-                </td>
-                <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
-                >
-                  {producto.valorunitario}
-                </td>
-                <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
-                >
-                  {producto.estado}
-                </td>
-              </tr>
+              <FilaProducto
+                key={nanoid}
+                producto={producto}
+                setEjecutarConsulta={setEjecutarConsulta}
+              />
             );
           })}
         </tbody>
       </table>
     </div>
+  );
+};
+
+const FilaProducto = ({ producto, setEjecutarConsulta }) => {
+  const [edit, setEdit] = useState(false);
+  const { darkMode } = useDarkMode();
+  const [infoNuevoProducto, setInfoNuevoProducto] = useState({
+    nombre: producto.nombre,
+    marca: producto.marca,
+    modelo: producto.modelo,
+    valorunitario: producto.valorunitario,
+    estado: producto.estado,
+    //Los anteriores nombres revisarlos, puede que haya que cambiarlos cuando se use el backend.
+  });
+
+  const actualizarProducto = async () => {
+    console.log(infoNuevoProducto);
+    //enviar la info al backend
+    const options = {
+      method: "PATCH",
+      url: "https://ccteam.com/addproduct/update/", //Actualizar la URL
+      headers: { "Content-Type": "application/json" },
+      data: { ...infoNuevoProducto, id: producto._id },
+    };
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("Producto modificado con éxito");
+        setEdit(false);
+        setEjecutarConsulta(true);
+      })
+      .catch(function (error) {
+        toast.error("Error modificando el producto");
+        console.error(error);
+      });
+  };
+
+  const eliminarProducto = async () => {
+    const options = {
+      method: "DELETE",
+      url: "https://ccteam.com/addproduct/delete/", //Cambiar la URL
+      headers: { "Content-Type": "application/json" },
+      data: { id: producto._id },
+    };
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("Producto eliminado con éxito");
+        setEjecutarConsulta(true);
+      })
+      .catch(function (error) {
+        console.error(error);
+        toast.error("Error eliminando producto");
+      });
+  };
+
+  return (
+    <tr className="h-14">
+      {edit ? (
+        <>
+          <td>
+            <input
+              className={`bg-gray-${
+                darkMode ? 900 : 50
+              } border border-gray-600 p-2 rounded-lg m-2`}
+              type="text"
+              value={infoNuevoProducto.nombre}
+              onChange={(e) =>
+                setInfoNuevoProducto({
+                  ...infoNuevoProducto,
+                  name: e.target.value,
+                })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className={`bg-gray-${
+                darkMode ? 900 : 50
+              } border border-gray-600 p-2 rounded-lg m-2`}
+              type="text"
+              value={infoNuevoProducto.marca}
+              onChange={(e) =>
+                setInfoNuevoProducto({
+                  ...infoNuevoProducto,
+                  brand: e.target.value,
+                })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className={`bg-gray-${
+                darkMode ? 900 : 50
+              } border border-gray-600 p-2 rounded-lg m-2`}
+              type="text"
+              value={infoNuevoProducto.modelo}
+              onChange={(e) =>
+                setInfoNuevoProducto({
+                  ...infoNuevoProducto,
+                  model: e.target.value,
+                })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className={`bg-gray-${
+                darkMode ? 900 : 50
+              } border border-gray-600 p-2 rounded-lg m-2`}
+              type="text"
+              value={infoNuevoProducto.valorunitario}
+              onChange={(e) =>
+                setInfoNuevoProducto({
+                  ...infoNuevoProducto,
+                  model: e.target.value,
+                })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className={`bg-gray-${
+                darkMode ? 900 : 50
+              } border border-gray-600 p-2 rounded-lg m-2`}
+              type="text"
+              value={infoNuevoProducto.estado}
+              onChange={(e) =>
+                setInfoNuevoProducto({
+                  ...infoNuevoProducto,
+                  model: e.target.value,
+                })
+              }
+            />
+          </td>
+        </>
+      ) : (
+        <>
+          <td
+            className={`text-center border border-${
+              darkMode ? "white" : "black"
+            } text-${darkMode ? "white" : "black"}`}
+          >
+            {producto.nombre}
+          </td>
+          <td
+            className={`text-center border border-${
+              darkMode ? "white" : "black"
+            } text-${darkMode ? "white" : "black"}`}
+          >
+            {producto.marca}
+          </td>
+          <td
+            className={`text-center border border-${
+              darkMode ? "white" : "black"
+            } text-${darkMode ? "white" : "black"}`}
+          >
+            {producto.modelo}
+          </td>
+          <td
+            className={`text-center border border-${
+              darkMode ? "white" : "black"
+            } text-${darkMode ? "white" : "black"}`}
+          >
+            {producto.valorunitario}
+          </td>
+          <td
+            className={`text-center border border-${
+              darkMode ? "white" : "black"
+            } text-${darkMode ? "white" : "black"}`}
+          >
+            {producto.estado}
+          </td>
+        </>
+      )}
+      <td>
+        <div className="flex w-full justify-around">
+          {edit ? (
+            <i
+              onClick={() => actualizarProducto()}
+              className="fas fa-check text-green-700 hover:text-green-500"
+            />
+          ) : (
+            <i
+              onClick={() => setEdit(!edit)}
+              className="fas fa-pencil-alt text-yellow-700 hover:text-yellow-400"
+            />
+          )}
+          <i
+            onClick={() => eliminarProducto()}
+            className="fas fa-trash text-red-700 hover:text-red-400"
+          />
+        </div>
+      </td>
+    </tr>
   );
 };
 
@@ -200,7 +385,7 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
         estado: nuevoProducto.estado,
       },
     };
-// Los valores anteriores de los datos que se envían, deberán con toda seguridad ser cambiados y actualizados, aquí se puede producir un error.
+    // Los valores anteriores de los datos que se envían, deberán con toda seguridad ser cambiados y actualizados, aquí se puede producir un error.
 
     await axios
       .request(options)
