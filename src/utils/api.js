@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const obtenerProductos = async (setProductos, setEjecutarConsulta) => {
-    const options = { method: "GET", url: "https://ccteam.com/addproduct" }; //Cambiar URL
+    const options = { method: "GET", url: "http://localhost:3001/products" }; //Cambiar URL
     
     await axios
     .request(options)

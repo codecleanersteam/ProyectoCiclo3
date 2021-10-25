@@ -19,12 +19,19 @@ const Products = () => {
 
   //useEffect para lectura de productos desde la base de datos.
   useEffect(() => {
-  // if (mostrarTabla) {
+    // if (mostrarTabla) {
     if (ejecutarConsulta) {
       obtenerProductos(setProductos, setEjecutarConsulta);
     }
     // }, [mostrarTabla]);
   }, [ejecutarConsulta]);
+
+  //useEffect para actualizar la tabla de productos dinámicamente
+  useEffect(() => {
+    if (mostrarTabla) {
+      setEjecutarConsulta(true);
+    }
+  }, [mostrarTabla]);
 
   //useEffect para cambiar el color y el texto del botón.
   useEffect(() => {
@@ -112,6 +119,13 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
                   darkMode ? "white" : "black"
                 } text-${darkMode ? "white" : "black"}`}
               >
+                ID
+              </th>
+              <th
+                className={`w-1/4 border border-${
+                  darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
+              >
                 Nombre o Descripción
               </th>
               <th
@@ -165,8 +179,8 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
         </table>
       </div>
       <div className="flex flex-col w-full m-2 md:hidden">
-        {productosFiltrados.map((el)=>{
-          return(
+        {productosFiltrados.map((el) => {
+          return (
             <div className="bg-gray-400 m-2 shadow-xl flex flex-col p-2 rounded-xl">
               <span>{el.nombre}</span>
               <span>{el.marca}</span>
@@ -174,9 +188,9 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
               <span>{el.valorunitario}</span>
               <span>{el.estado}</span>
             </div>
-          )
+          );
         })}
-        </div>
+      </div>
     </div>
   );
 };
@@ -186,6 +200,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const { darkMode } = useDarkMode();
   const [infoNuevoProducto, setInfoNuevoProducto] = useState({
+    id_: producto._id,
     nombre: producto.nombre,
     marca: producto.marca,
     modelo: producto.modelo,
@@ -199,7 +214,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
     //enviar la info al backend
     const options = {
       method: "PATCH",
-      url: "https://ccteam.com/addproduct/update/", //Actualizar la URL
+      url: "http://localhost:3001/products/modify", //Actualizar la URL
       headers: { "Content-Type": "application/json" },
       data: { ...infoNuevoProducto, id: producto._id },
     };
@@ -221,7 +236,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
   const eliminarProducto = async () => {
     const options = {
       method: "DELETE",
-      url: "https://ccteam.com/addproduct/delete/", //Cambiar la URL
+      url: "http://localhost:3001/products/delete", //Cambiar la URL
       headers: { "Content-Type": "application/json" },
       data: { id: producto._id },
     };
@@ -241,9 +256,15 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
   };
 
   return (
-    <tr className="h-14">
+    <tr className="h-10">
       {edit ? (
         <>
+          <td
+            className={`bg-gray-${
+              darkMode ? 900 : 50
+            } border border-gray-600 p-2 rounded-lg m-2 text-center`}>
+            {producto._id.slice(19)}
+          </td>
           <td>
             <input
               className={`bg-gray-${
@@ -254,7 +275,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               onChange={(e) =>
                 setInfoNuevoProducto({
                   ...infoNuevoProducto,
-                  name: e.target.value,
+                  nombre: e.target.value,
                 })
               }
             />
@@ -269,7 +290,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               onChange={(e) =>
                 setInfoNuevoProducto({
                   ...infoNuevoProducto,
-                  brand: e.target.value,
+                  marca: e.target.value,
                 })
               }
             />
@@ -284,7 +305,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               onChange={(e) =>
                 setInfoNuevoProducto({
                   ...infoNuevoProducto,
-                  model: e.target.value,
+                  modelo: e.target.value,
                 })
               }
             />
@@ -299,13 +320,13 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               onChange={(e) =>
                 setInfoNuevoProducto({
                   ...infoNuevoProducto,
-                  model: e.target.value,
+                  valorunitario: e.target.value,
                 })
               }
             />
           </td>
           <td>
-            <input
+            {/* <input
               className={`bg-gray-${
                 darkMode ? 900 : 50
               } border border-gray-600 p-2 rounded-lg m-2`}
@@ -314,14 +335,36 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               onChange={(e) =>
                 setInfoNuevoProducto({
                   ...infoNuevoProducto,
-                  model: e.target.value,
+                  estado: e.target.value,
                 })
               }
-            />
+            /> */}
+            <select
+              className={`bg-gray-${
+                darkMode ? 900 : 50
+              } border border-gray-600 p-2 rounded-lg m-2`}
+              value={infoNuevoProducto.estado}
+              onChange={(e) =>
+                setInfoNuevoProducto({
+                  ...infoNuevoProducto,
+                  estado: e.target.value,
+                })
+              }
+            >
+              <option value="Disponible">Disponible</option>
+              <option value="No Disponible">No Disponible</option>
+            </select>
           </td>
         </>
       ) : (
         <>
+          <td
+            className={`text-center border border-${
+              darkMode ? "white" : "black"
+            } text-${darkMode ? "white" : "black"}`}
+          >
+            {producto._id.slice(19)}
+          </td>
           <td
             className={`text-center border border-${
               darkMode ? "white" : "black"
@@ -359,11 +402,15 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
           </td>
         </>
       )}
-      <td>
+      <td
+        className={`text-center border border-${
+          darkMode ? "white" : "black"
+        } text-${darkMode ? "white" : "black"}`}
+      >
         <div className="flex w-full justify-around">
           {edit ? (
             <>
-              <Tooltip tittle="Confirmar Edición" arrow placement="top">
+              <Tooltip title="Confirmar Edición" arrow placement="top">
                 <i
                   onClick={() => actualizarProducto()}
                   className="fas fa-check text-green-700 hover:text-green-500"
@@ -372,7 +419,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               <Tooltip title="Cancelar Edición" arrow placement="top">
                 <i
                   onClick={() => setEdit(!edit)}
-                  className="fas fa-ban text-yellow-700 hover:text-yellow-400"
+                  className="fas fa-ban text-blue-700 hover:text-blue-400"
                 />
               </Tooltip>
             </>
@@ -381,22 +428,32 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               <Tooltip title="Editar Producto" arrow placement="top">
                 <i
                   onClick={() => setEdit(!edit)}
-                  className="fas fa-pencil-alt text-yellow-700 hover:text-yellow-400"
+                  className={`fas fa-pencil-alt text-${
+                    darkMode ? "white" : "black"
+                  } hover:text-blue-400`}
                 />
               </Tooltip>
 
               <Tooltip title="Eliminar Producto" arrow placement="top">
                 <i
                   onClick={() => setOpenDialog(true)}
-                  className="fas fa-trash text-red-700 hover:text-red-400"
+                  className={`fas fa-trash text-${
+                    darkMode ? "white" : "black"
+                  } hover:text-red-700`}
                 />
               </Tooltip>
             </>
           )}
         </div>
         <Dialog open={openDialog}>
-          <div className="p-8 flex flex-col">
-            <h1 className="text-gray-900 text-2xl font-bold">
+          <div
+            className={`p-8 flex flex-col bg-${darkMode ? "black" : "white"}`}
+          >
+            <h1
+              className={`text-gray-${
+                darkMode ? "50" : "900"
+              } text-2xl font-bold`}
+            >
               ¿Está seguro de que quiere eliminar el producto?
             </h1>
             <div className="flex w-full justify-center my-4">
@@ -433,7 +490,7 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
 
     const options = {
       method: "POST",
-      url: "https://ccteam.com/addproduct", //Hay que cambiar esta URL
+      url: "http://localhost:3001/products/add", //Hay que cambiar esta URL
       headers: { "Content-Type": "application/json" },
       data: {
         nombre: nuevoProducto.nombre,
