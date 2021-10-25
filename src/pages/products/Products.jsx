@@ -103,7 +103,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Buscar Productos"
-        className="border-2 border-gray-700 px-5 py-3 rounded-md focus:outline-none focus:border-blue-500 font-semibold italic text-lg"
+        className="border-2 border-gray-700 px-5 py-3 rounded-md focus:outline-none focus:border-blue-500 font-semibold italic text-lg text-black"
       />
       <p className="my-5 text-2xl">Lista de Productos</p>
       <div className="hidden md:block">
@@ -214,7 +214,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
     //enviar la info al backend
     const options = {
       method: "PATCH",
-      url: "http://localhost:3001/products/modify", //Actualizar la URL
+      url: "http://192.168.0.100:3001/products/modify", //Actualizar la URL
       headers: { "Content-Type": "application/json" },
       data: { ...infoNuevoProducto, id: producto._id },
     };
@@ -236,7 +236,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
   const eliminarProducto = async () => {
     const options = {
       method: "DELETE",
-      url: "http://localhost:3001/products/delete", //Cambiar la URL
+      url: "http://192.168.0.100:3001/products/delete", //Cambiar la URL
       headers: { "Content-Type": "application/json" },
       data: { id: producto._id },
     };
@@ -490,7 +490,7 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
 
     const options = {
       method: "POST",
-      url: "http://localhost:3001/products/add", //Hay que cambiar esta URL
+      url: "http://192.168.0.100:3001/products/add", //Hay que cambiar esta URL
       headers: { "Content-Type": "application/json" },
       data: {
         nombre: nuevoProducto.nombre,

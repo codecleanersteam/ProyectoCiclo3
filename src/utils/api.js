@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const obtenerProductos = async (setProductos, setEjecutarConsulta) => {
-    const options = { method: "GET", url: "http://localhost:3001/products" }; //Cambiar URL
+    const options = { method: "GET", url: "http://192.168.0.100:3001/products" }; //Cambiar URL
     
     await axios
     .request(options)
