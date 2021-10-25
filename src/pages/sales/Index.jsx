@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDarkMode } from "context/darkMode";
 
 const Sale = () => {
+  const { darkMode } = useDarkMode();
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className={`flex flex-col w-full h-full bg-${
+      darkMode ? "black" : "white"
+    } text-${darkMode ? "white" : "black"}`}>
       <div className="flex p-7 justify-center font-bold md:text-xl lg:text-xl m-20 xl:text-2xl 2xl:text-3xl">
         ADMINISTRADOR DE VENTAS
       </div>

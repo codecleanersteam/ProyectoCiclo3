@@ -46,11 +46,12 @@ const Products = () => {
 
   return (
     <div
-      className={`place-content-center h-full w-full pl-48 pr-48 bg-${
+      className={`flex flex-col items-center h-full w-full px-5 bg-${
         darkMode ? "black" : "white"
-      } text-${darkMode ? "white" : "black"}`}
+      } text-${darkMode ? "white" : "black"}
+      lg:px-56`}
     >
-      <div className="text-5xl font-semibold text-center mt-4">
+      <div className="font-semibold text-center mt-4 text-4xl lg:text-5xl">
         <h2>Administración de Productos</h2>
       </div>
       <div>
@@ -58,7 +59,7 @@ const Products = () => {
           onClick={() => {
             setMostrarTabla(!mostrarTabla);
           }}
-          className={`text-white bg-${colorBoton} rounded-md self-end sm:w-40 md:w-72 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-gray-700 hover:text-white shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14  text-white h-14 w-3/4 text-xl`}
+          className={`w-64 h-14 text-2xl my-8 text-white bg-${colorBoton} rounded-md self-end lg:hover:bg-gray-700 hover:text-white shadow-xl lg:w-80`}
         >
           {textoBoton}
         </button>
@@ -85,7 +86,7 @@ const TablaProductos = ({ listaProductos }) => {
     console.log("Este es el listado de productos en la Tabla", listaProductos);
   });
   return (
-    <div className="place-content-center h-full w-full pr-32 pl-32 pb-16">
+    <div className="place-content-center h-full w-full pb-16">
       <p className="my-5 text-2xl">Lista de Productos</p>
       <table
         className={`border-2 border-${darkMode ? "white" : "black"} w-full`}
@@ -93,35 +94,35 @@ const TablaProductos = ({ listaProductos }) => {
         <thead>
           <tr className="h-14">
             <th
-              className={`w-1/4 border border-${
+              className={`w-48 border border-${
                 darkMode ? "white" : "black"
               } text-${darkMode ? "white" : "black"}`}
             >
               Nombre o Descripción
             </th>
             <th
-              className={`w-1/4 border border-${
+              className={`w-24 border border-${
                 darkMode ? "white" : "black"
               } text-${darkMode ? "white" : "black"}`}
             >
               Marca
             </th>
             <th
-              className={`w-1/4 border border-${
+              className={`w-24 border border-${
                 darkMode ? "white" : "black"
               } text-${darkMode ? "white" : "black"}`}
             >
               Modelo
             </th>
             <th
-              className={`w-1/4 border border-${
+              className={`w-24 border border-${
                 darkMode ? "white" : "black"
               } text-${darkMode ? "white" : "black"}`}
             >
               Valor Unitario
             </th>
             <th
-              className={`w-1/4 border border-${
+              className={`w-24 border border-${
                 darkMode ? "white" : "black"
               } text-${darkMode ? "white" : "black"}`}
             >
@@ -218,13 +219,13 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
   const { darkMode } = useDarkMode();
 
   return (
-    <div className="place-content-center pl-60 pr-60">
+    <div className="w-full h-full px-28 lg:px-56">
       <p className="pl-12 text-2xl my-5">Registrar Nuevo Producto</p>
       <form ref={form} onSubmit={submitForm}>
         <div
-          className={`grid grid-cols-3 border-4 border-double border-${
+          className={`w-full h-full border-4 border-double border-${
             darkMode ? "white" : "black"
-          } items-center justify-center w-full pr-32 pl-32 pt-20 pb-20`}
+          } items-center justify-center px-12 py-10 lg:px-0 lg:grid grid-cols-3`}
         >
           <div className="m-5">
             <label>Nombre o Descripción</label>
