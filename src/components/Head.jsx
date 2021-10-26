@@ -38,7 +38,7 @@ const Head = () => {
           <li>
             <Ruta
               icono={faFileInvoiceDollar}
-              ruta={"/sale"}
+              ruta={"/sales"}
               nombre={"Administrador de Ventas"}
             />
           </li>

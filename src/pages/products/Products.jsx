@@ -2,12 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDarkMode } from "context/darkMode";
-import axios from "axios";
 import { nanoid } from "nanoid";
 import { Dialog, Tooltip } from "@material-ui/core";
-import { obtenerProductos } from "utils/api";
-
-//Aqui iban los datos de la tabla incluidos en el código.
+import { obtenerProductos, crearProducto, editarProducto, eliminarProducto } from "utils/api";
 
 const Products = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -17,11 +14,18 @@ const Products = () => {
   const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
   const { darkMode } = useDarkMode();
 
-  //useEffect para lectura de productos desde la base de datos.
   useEffect(() => {
-    // if (mostrarTabla) {
+    console.log("Consulta", ejecutarConsulta);
     if (ejecutarConsulta) {
-      obtenerProductos(setProductos, setEjecutarConsulta);
+      obtenerProductos(
+        (response) => {
+          setProductos(response.data);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+      setEjecutarConsulta(false);
     }
     // }, [mostrarTabla]);
   }, [ejecutarConsulta]);
@@ -47,7 +51,7 @@ const Products = () => {
   return (
     <div
       className={`place-content-center h-full w-full pl-48 pr-48 bg-${
-        darkMode ? "black" : "white"
+        darkMode ? "black" : "gray-50"
       } text-${darkMode ? "white" : "black"}`}
     >
       <div className="text-5xl font-semibold text-center mt-4">
@@ -58,7 +62,7 @@ const Products = () => {
           onClick={() => {
             setMostrarTabla(!mostrarTabla);
           }}
-          className={`text-white bg-${colorBoton} rounded-md self-end sm:w-40 md:w-72 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-gray-700 hover:text-white shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14  text-white h-14 w-3/4 text-xl`}
+          className={`text-white bg-${colorBoton} rounded-md self-end sm:w-40 md:w-72 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-gray-700 hover:text-white shadow-xl sm:my-2 md:my-3 lg:my-7 xl:my-12 2xl:my-14  text-white h-14 w-3/4 text-xl`}
         >
           {textoBoton}
         </button>
@@ -98,13 +102,15 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
   }, [search, listaProductos]);
 
   return (
-    <div className="place-content-center h-full w-full pr-32 pl-32 pb-16">
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Buscar Productos"
-        className="border-2 border-gray-700 px-5 py-3 rounded-md focus:outline-none focus:border-blue-500 font-semibold italic text-lg text-black"
-      />
+    <div className="flex flex-col h-full w-full pr-32 pl-32">
+      <div className="flex w-full justify-center">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Buscar Productos"
+          className="flex w-96 border-2 border-gray-700 px-5 py-3 rounded-md focus:outline-none focus:border-blue-500 font-semibold italic text-lg text-black"
+        />
+      </div>
       <p className="my-5 text-2xl">Lista de Productos</p>
       <div className="hidden md:block">
         <table
@@ -200,58 +206,50 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const { darkMode } = useDarkMode();
   const [infoNuevoProducto, setInfoNuevoProducto] = useState({
-    id_: producto._id,
+    _id: producto._id,
     nombre: producto.nombre,
     marca: producto.marca,
     modelo: producto.modelo,
     valorunitario: producto.valorunitario,
     estado: producto.estado,
-    //Los anteriores nombres revisarlos, puede que haya que cambiarlos cuando se use el backend.
   });
 
   const actualizarProducto = async () => {
-    console.log(infoNuevoProducto);
-    //enviar la info al backend
-    const options = {
-      method: "PATCH",
-      url: `http://192.168.0.100:3001/products/${producto._id}/`, //Actualizar la URL
-      headers: { "Content-Type": "application/json" },
-      data: { ...infoNuevoProducto},
-    };
-
-    await axios
-      .request(options)
-      .then(function (response) {
+    await editarProducto(
+      producto._id,
+      {
+        nombre: infoNuevoProducto.nombre,
+        marca: infoNuevoProducto.marca,
+        modelo: infoNuevoProducto.modelo,
+        valorunitario: infoNuevoProducto.valorunitario,
+        estado: infoNuevoProducto.estado,
+      },
+      (response) => {
         console.log(response.data);
         toast.success("Producto modificado con éxito");
         setEdit(false);
         setEjecutarConsulta(true);
-      })
-      .catch(function (error) {
+      },
+      (error) => {
         toast.error("Error modificando el producto");
         console.error(error);
-      });
+      }
+    );
   };
 
-  const eliminarProducto = async () => {
-    const options = {
-      method: "DELETE",
-      url: `http://192.168.0.100:3001/products/${producto._id}/`, //Cambiar la URL
-      headers: { "Content-Type": "application/json" },
-      // data: { id: producto._id },
-    };
-
-    await axios
-      .request(options)
-      .then(function (response) {
+  const deleteProduct = async () => {
+    await eliminarProducto(
+      producto._id,
+      (response) => {
         console.log(response.data);
         toast.success("Producto eliminado con éxito");
         setEjecutarConsulta(true);
-      })
-      .catch(function (error) {
+      },
+      (error) => {
         console.error(error);
         toast.error("Error eliminando producto");
-      });
+      }
+    );
     setOpenDialog(false);
   };
 
@@ -262,7 +260,8 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
           <td
             className={`bg-gray-${
               darkMode ? 900 : 50
-            } border border-gray-600 p-2 rounded-lg m-2 text-center`}>
+            } border border-gray-600 p-2 rounded-lg m-2 text-center`}
+          >
             {producto._id.slice(19)}
           </td>
           <td>
@@ -326,19 +325,6 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
             />
           </td>
           <td>
-            {/* <input
-              className={`bg-gray-${
-                darkMode ? 900 : 50
-              } border border-gray-600 p-2 rounded-lg m-2`}
-              type="text"
-              value={infoNuevoProducto.estado}
-              onChange={(e) =>
-                setInfoNuevoProducto({
-                  ...infoNuevoProducto,
-                  estado: e.target.value,
-                })
-              }
-            /> */}
             <select
               className={`bg-gray-${
                 darkMode ? 900 : 50
@@ -458,7 +444,7 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
             </h1>
             <div className="flex w-full justify-center my-4">
               <button
-                onClick={() => eliminarProducto()}
+                onClick={() => deleteProduct()}
                 className="mx-2 px-4 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md"
               >
                 Si
@@ -486,33 +472,24 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
     fd.forEach((value, key) => {
       nuevoProducto[key] = value;
     });
-    // Código para crear producto y enviar la información a la base de datos.
 
-    const options = {
-      method: "POST",
-      url: "http://192.168.0.100:3001/products/", //Hay que cambiar esta URL
-      headers: { "Content-Type": "application/json" },
-      data: {
+    await crearProducto(
+      {
         nombre: nuevoProducto.nombre,
         marca: nuevoProducto.marca,
         modelo: nuevoProducto.modelo,
         valorunitario: nuevoProducto.valorunitario,
         estado: nuevoProducto.estado,
       },
-    };
-    // Los valores anteriores de los datos que se envían, deberán con toda seguridad ser cambiados y actualizados, aquí se puede producir un error.
-
-    await axios
-      .request(options)
-      .then(function (response) {
+      (response) => {
         console.log(response.data);
         toast.success("Producto agregado exitosamente");
-      })
-      .catch(function (error) {
+      },
+      (error) => {
         console.error(error);
         toast.error("Se ha producido un error creando el producto");
-      });
-
+      }
+    );
     setMostrarTabla(true);
   };
   const { darkMode } = useDarkMode();
@@ -530,7 +507,7 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
             <label>Nombre o Descripción</label>
             <br />
             <input
-              name="nombre" //Este valor y todos los nombres de los input con seguridad deberán cambiarse.
+              name="nombre"
               className="appeareance-none relative block w-full px-3 py-2 border border-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-blue-600 focus:border-blue-600 focus:z-10 sm:text-sm font-bold my-2"
               type="text"
               required
