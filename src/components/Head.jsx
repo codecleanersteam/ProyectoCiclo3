@@ -18,7 +18,7 @@ import useActiveRoute from "hooks/useActiveRoute";
 const Head = () => {
   const { darkMode } = useDarkMode();
   return (
-    <nav className="flex w-full bg-blue-500 ">
+    <nav className="hidden lg:flex w-full bg-blue-500 ">
       <div className="flex w-full ">
         <ul className="flex w-full justify-between">
           <li>
@@ -51,9 +51,9 @@ const Head = () => {
           </li>
           <li>
             <DarkModeSwitch
-              estilo={`flex items-center px-20 py-5 hover:bg-${
+              estilo={`flex items-center px-20 py-5 text-white hover:bg-${
                 darkMode ? "white" : "black"
-              } text-${darkMode ? "black" : "white"}`}
+              } hover:text-${darkMode ? "black" : "white"}`}
               icono={darkMode ? faSun : faMoon}
             />
           </li>
