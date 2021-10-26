@@ -46,11 +46,11 @@ const Products = () => {
 
   return (
     <div
-      className={`flex flex-col items-center h-full w-full px-5 bg-${darkMode ? "black" : "white"
+      className={`flex flex-col items-center h-full w-full bg-${darkMode ? "black" : "white"
         } text-${darkMode ? "white" : "black"}
-      lg:px-56`}
+      lg:px-48`}
     >
-      <div className="font-semibold text-center mt-4 text-4xl lg:text-5xl">
+      <div className="font-semibold text-center mx-4 mt-4 text-4xl lg:text-5xl">
         <h2>Administración de Productos</h2>
       </div>
       <div>
@@ -98,15 +98,15 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
   }, [search, listaProductos]);
 
   return (
-    <div className="place-content-center h-full w-full pr-32 pl-32 pb-16">
+    <div className="flex flex-col px-10 lg:w-full lg:pb-16">
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Buscar Productos"
-        className="border-2 border-gray-700 px-5 py-3 rounded-md focus:outline-none focus:border-blue-500 font-semibold italic text-lg"
+        className="text-center w-3/4 border-2 border-gray-700 px-5 py-3 rounded-md focus:outline-none focus:border-blue-500 font-semibold italic text-lg lg:w-1/4"
       />
       <p className="my-5 text-2xl">Lista de Productos</p>
-      <div className="hidden md:block">
+      <div className="md:block">
         <table
           className={`border-2 border-${darkMode ? "white" : "black"
             } w-full tabla`}
