@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import DarkModeSwitch from "./DarkModeSwitch";
 import LogoSmall from "./LogoSmall";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+   const { loginWithRedirect } = useAuth0();
   return (
     <nav className="bg-blue-300">
       <ul className="flex justify-between my-0">
@@ -34,14 +36,17 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <DarkModeSwitch estilo={"px-20 py-5 hover:bg-blue-400 "}/>
+          <DarkModeSwitch estilo={"px-20 py-5 hover:bg-blue-400 "} />
         </li>
         <li>
-          <Link to="/login">
-            <button className="bg-gray-200 shadow-md p-5 hover:bg-gray-400">
-              Iniciar Sesión
-            </button>
-          </Link>
+          {/* <Link to="/login"> */}
+          <button
+            onClick={() => loginWithRedirect()}
+            className="bg-gray-200 shadow-md p-5 hover:bg-gray-400"
+          >
+            Iniciar Sesión
+          </button>
+          {/* </Link> */}
         </li>
       </ul>
     </nav>
