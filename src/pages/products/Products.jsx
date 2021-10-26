@@ -214,9 +214,9 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
     //enviar la info al backend
     const options = {
       method: "PATCH",
-      url: "http://192.168.0.100:3001/products/modify", //Actualizar la URL
+      url: `http://192.168.0.100:3001/products/${producto._id}/`, //Actualizar la URL
       headers: { "Content-Type": "application/json" },
-      data: { ...infoNuevoProducto, id: producto._id },
+      data: { ...infoNuevoProducto},
     };
 
     await axios
@@ -236,9 +236,9 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
   const eliminarProducto = async () => {
     const options = {
       method: "DELETE",
-      url: "http://192.168.0.100:3001/products/delete", //Cambiar la URL
+      url: `http://192.168.0.100:3001/products/${producto._id}/`, //Cambiar la URL
       headers: { "Content-Type": "application/json" },
-      data: { id: producto._id },
+      // data: { id: producto._id },
     };
 
     await axios
@@ -490,7 +490,7 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
 
     const options = {
       method: "POST",
-      url: "http://192.168.0.100:3001/products/add", //Hay que cambiar esta URL
+      url: "http://192.168.0.100:3001/products/", //Hay que cambiar esta URL
       headers: { "Content-Type": "application/json" },
       data: {
         nombre: nuevoProducto.nombre,

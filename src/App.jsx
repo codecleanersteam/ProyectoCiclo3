@@ -16,6 +16,7 @@ import ListProduct from "pages/products/List";
 import ModifyProduct from "pages/products/Modify";
 import SearchProduct from "pages/products/Search";
 import Sale from "pages/sales/Index";
+import Sales from "pages/sales/Sales";
 import AddSale from "pages/sales/Add";
 import ListSale from "pages/sales/List";
 import ModifySale from "pages/sales/Modify";
@@ -62,6 +63,7 @@ function App() {
                 "/product/modify",
                 "/profile",
                 "/sale",
+                "/sales",
                 "sale/add",
                 "/sale/list",
                 "/sale/search",
@@ -104,6 +106,9 @@ function App() {
                   </Route>
                   <Route path="/sale/modify">
                     <ModifySale />
+                  </Route>
+                  <Route path="/sales">
+                    <Sales />
                   </Route>
                   <Route path="/sale">
                     <Sale />
