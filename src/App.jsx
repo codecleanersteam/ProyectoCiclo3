@@ -38,7 +38,8 @@ function App() {
     <Auth0Provider
       domain="proyectociclo3.us.auth0.com"
       clientId="5WiXryJJwMNw7gRE08EbqUTaOd0BAzys"
-      redirectUri={window.location.origin}
+      // redirectUri={window.location.origin}
+      redirectUri="http://localhost:3000/sales"
     >
       <div>
         <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
