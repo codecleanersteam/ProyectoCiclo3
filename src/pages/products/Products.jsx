@@ -549,10 +549,10 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
             <select
               name="estado"
               className="appeareance-none relative block w-full px-3 py-2 border border-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-blue-600 focus:border-blue-600 focus:z-10 sm:text-sm font-bold my-2"
+              defaultValue=""
               required
-              defaultValue={0}
             >
-              <option disabled value={0}>
+              <option disabled value="">
                 Seleccionar Opción
               </option>
               <option>Disponible</option>
