@@ -11,13 +11,13 @@ const DarkModeSwitch = ({estilo, icono}) => {
       }}
       className={estilo}
     >
-              <div className="flex justify-center w-10">
+          <div className="flex justify-center">
           <FontAwesomeIcon
             className="flex fill-current"
             icon={icono}
           ></FontAwesomeIcon>
         </div>
-      {darkMode ? "Modo Claro" : "Modo Oscuro"}
+      <div className="pl-5">{darkMode ? "Modo Claro" : "Modo Oscuro"}</div>
     </button>
   );
 };
