@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'; import DarkModeSwitch from "./DarkModeS
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faFileInvoiceDollar,
+    faHome,
     faMobileAlt,
     faUsers,
     faUser,
@@ -33,7 +34,9 @@ const SidebarResponsive = () => {
                 <div className="w-1/4 md:w-1/2 flex text-right">
                     <LogoSmall/>
                 </div>
-                <div className="w-2/3 text-3xl text-white pt-2 font-bold text-left">Code Cleaners Tech</div>
+                <div className="w-2/3 text-3xl text-white pt-2 font-bold text-left">
+                    Code Cleaners Tech
+                </div>
             </div>
 
             {mostrarNavegacion && (

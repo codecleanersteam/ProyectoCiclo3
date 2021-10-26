@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; import DarkModeSwitch from "./DarkModeSwitch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faFileInvoiceDollar,
-    faMobileAlt,
+
+    faHome,
     faUsers,
-    faUser,
-    faSignOutAlt,
+    faInfoCircle,
+    faQuestionCircle,
     faSun,
     faMoon,
     faBars,
+    faSignInAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { useDarkMode } from "context/darkMode";
 import useActiveRoute from "hooks/useActiveRoute";
@@ -21,36 +22,36 @@ const Menu = () => {
     return (
         <div
             className='bg-blue-700 lg:hidden'
-            onClick={() => {
-                setMostrarMenu(!mostrarMenu);
-            }}
         >
-            <div className="flex flex-row my-2">
-                <FontAwesomeIcon
-                    className="text-white mx-4 my-4 lg:hidden"
-                    icon={faBars}
-                ></FontAwesomeIcon>
-                <div className="w-1/4 md:w-1/2 flex text-right">
-                    <LogoSmall/>
+            <Link to="/">
+                <div className="flex flex-row my-2">
+                    <FontAwesomeIcon
+                        className="text-white mx-4 my-4 lg:hidden"
+                        onClick={() => {
+                            setMostrarMenu(!mostrarMenu);
+                        }}
+                        icon={faBars}
+                    ></FontAwesomeIcon>
+                    <div className="w-1/4 md:w-1/2 flex text-right">
+                        <LogoSmall/>
+                    </div>
+                    <div className="w-2/3 text-3xl text-white pt-2 font-bold text-left">Code Cleaners Tech</div>
                 </div>
-                <div className="w-2/3 text-3xl text-white pt-2 font-bold text-left">Code Cleaners Tech</div>
-            </div>
-
+            </Link>
             {mostrarMenu && (
                 <ul className={`bg-blue-500 items-center  bg-${darkMode ? "blue-600" : "blue-500"}`}>
-                    <ResponsiveRoute icono={faMobileAlt} ruta={"/products"} nombre={"Administrador de Productos"} />
-                    <ResponsiveRoute icono={faFileInvoiceDollar} ruta={"/sale"} nombre={"Administrador de Ventas"} />
-                    <ResponsiveRoute icono={faUsers} ruta={"/user"} nombre={"Administrador de Usuarios"} />
+                    <RutaMenu icono={faUsers} ruta={"/about"} nombre={"Quienes Somos"} />
+                    <RutaMenu icono={faInfoCircle} ruta={"/description"} nombre={"Descripción"} />
+                    <RutaMenu icono={faQuestionCircle} ruta={"/help"} nombre={"Ayuda"} />
                     <DarkModeSwitch estilo={`pl-3 flex flex-row p-2 text-white text-xl md:text-2xl`} icono={darkMode ? faSun : faMoon} />
-                    <ResponsiveRoute icono={faUser} ruta={"/profile"} nombre={"Mi Cuenta"} />
-                    <ResponsiveRoute icono={faSignOutAlt} ruta={"/login"} nombre={"Salir"} />
+                    <RutaMenu icono={faSignInAlt} ruta={"/login"} nombre={"Iniciar Sesión"} />
                 </ul>
             )}
         </div>
     );
 };
 
-const ResponsiveRoute = ({ ruta, nombre, icono }) => {
+const RutaMenu = ({ ruta, nombre, icono }) => {
     const isActive = useActiveRoute(ruta);
     return (
         <Link to={ruta}>
