@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'; import DarkModeSwitch from "./DarkModeS
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faFileInvoiceDollar,
-    faHome,
     faMobileAlt,
     faUsers,
     faUser,

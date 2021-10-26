@@ -46,9 +46,8 @@ const Products = () => {
 
   return (
     <div
-      className={`flex flex-col items-center h-full w-full px-5 bg-${
-        darkMode ? "black" : "white"
-      } text-${darkMode ? "white" : "black"}
+      className={`flex flex-col items-center h-full w-full px-5 bg-${darkMode ? "black" : "white"
+        } text-${darkMode ? "white" : "black"}
       lg:px-56`}
     >
       <div className="font-semibold text-center mt-4 text-4xl lg:text-5xl">
@@ -94,39 +93,40 @@ const TablaProductos = ({ listaProductos }) => {
         <thead>
           <tr className="h-14">
             <th
-              className={`w-48 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
+              className={`w-48 border border-${darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
             >
               Nombre o Descripción
             </th>
             <th
-              className={`w-24 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
+              className={`w-24 border border-${darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
             >
               Marca
             </th>
             <th
-              className={`w-24 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
+              className={`w-24 border border-${darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
             >
               Modelo
             </th>
             <th
-              className={`w-24 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
+              className={`w-24 border border-${darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
             >
               Valor Unitario
             </th>
             <th
-              className={`w-24 border border-${
-                darkMode ? "white" : "black"
-              } text-${darkMode ? "white" : "black"}`}
+              className={`w-24 border border-${darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
             >
               Estado
+            </th>
+            <th
+              className={`w-1/4 border border-${darkMode ? "white" : "black"
+                } text-${darkMode ? "white" : "black"}`}
+            >
+              Tareas
             </th>
           </tr>
         </thead>
@@ -135,37 +135,32 @@ const TablaProductos = ({ listaProductos }) => {
             return (
               <tr className="h-14">
                 <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
+                  className={`text-center border border-${darkMode ? "white" : "black"
+                    } text-${darkMode ? "white" : "black"}`}
                 >
                   {producto.nombre}
                 </td>
                 <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
+                  className={`text-center border border-${darkMode ? "white" : "black"
+                    } text-${darkMode ? "white" : "black"}`}
                 >
                   {producto.marca}
                 </td>
                 <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
+                  className={`text-center border border-${darkMode ? "white" : "black"
+                    } text-${darkMode ? "white" : "black"}`}
                 >
                   {producto.modelo}
                 </td>
                 <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
+                  className={`text-center border border-${darkMode ? "white" : "black"
+                    } text-${darkMode ? "white" : "black"}`}
                 >
                   {producto.valorunitario}
                 </td>
                 <td
-                  className={`text-center border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
+                  className={`text-center border border-${darkMode ? "white" : "black"
+                    } text-${darkMode ? "white" : "black"}`}
                 >
                   {producto.estado}
                 </td>
@@ -201,7 +196,7 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
         estado: nuevoProducto.estado,
       },
     };
-// Los valores anteriores de los datos que se envían, deberán con toda seguridad ser cambiados y actualizados, aquí se puede producir un error.
+    // Los valores anteriores de los datos que se envían, deberán con toda seguridad ser cambiados y actualizados, aquí se puede producir un error.
 
     await axios
       .request(options)
@@ -223,9 +218,8 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
       <p className="pl-12 text-2xl my-5">Registrar Nuevo Producto</p>
       <form ref={form} onSubmit={submitForm}>
         <div
-          className={`w-full h-full border-4 border-double border-${
-            darkMode ? "white" : "black"
-          } items-center justify-center px-12 py-10 lg:px-0 lg:grid grid-cols-3`}
+          className={`w-full h-full border-4 border-double border-${darkMode ? "white" : "black"
+            } items-center justify-center px-12 py-10 lg:px-0 lg:grid grid-cols-3`}
         >
           <div className="m-5">
             <label>Nombre o Descripción</label>
