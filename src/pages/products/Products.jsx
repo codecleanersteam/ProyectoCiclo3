@@ -46,11 +46,11 @@ const Products = () => {
 
   return (
     <div
-      className={`place-content-center h-full w-full pl-48 pr-48 bg-${
-        darkMode ? "black" : "white"
-      } text-${darkMode ? "white" : "black"}`}
+      className={`flex flex-col items-center h-full w-full px-5 bg-${darkMode ? "black" : "white"
+        } text-${darkMode ? "white" : "black"}
+      lg:px-56`}
     >
-      <div className="text-5xl font-semibold text-center mt-4">
+      <div className="font-semibold text-center mt-4 text-4xl lg:text-5xl">
         <h2>Administración de Productos</h2>
       </div>
       <div>
@@ -58,7 +58,7 @@ const Products = () => {
           onClick={() => {
             setMostrarTabla(!mostrarTabla);
           }}
-          className={`text-white bg-${colorBoton} rounded-md self-end sm:w-40 md:w-72 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-gray-700 hover:text-white shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14  text-white h-14 w-3/4 text-xl`}
+          className={`w-64 h-14 text-2xl my-8 text-white bg-${colorBoton} rounded-md self-end lg:hover:bg-gray-700 hover:text-white shadow-xl lg:w-80`}
         >
           {textoBoton}
         </button>
@@ -108,58 +108,50 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
       <p className="my-5 text-2xl">Lista de Productos</p>
       <div className="hidden md:block">
         <table
-          className={`border-2 border-${
-            darkMode ? "white" : "black"
-          } w-full tabla`}
+          className={`border-2 border-${darkMode ? "white" : "black"
+            } w-full tabla`}
         >
           <thead>
             <tr className="h-14">
               <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
+                className={`w-1/4 border border-${darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
               >
                 ID
               </th>
               <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
+                className={`w-1/4 border border-${darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
               >
                 Nombre o Descripción
               </th>
               <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
+                className={`w-1/4 border border-${darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
               >
                 Marca
               </th>
               <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
+                className={`w-1/4 border border-${darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
               >
                 Modelo
               </th>
               <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
+                className={`w-1/4 border border-${darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
               >
                 Valor Unitario
               </th>
               <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
+                className={`w-1/4 border border-${darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
               >
                 Estado
               </th>
               <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
+                className={`w-1/4 border border-${darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
               >
                 Tareas
               </th>
@@ -196,10 +188,10 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
 };
 
 const FilaProducto = ({ producto, setEjecutarConsulta }) => {
-  const [edit, setEdit] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
-  const { darkMode } = useDarkMode();
-  const [infoNuevoProducto, setInfoNuevoProducto] = useState({
+    const [edit, setEdit] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const { darkMode } = useDarkMode();
+    const [infoNuevoProducto, setInfoNuevoProducto] = useState({
     id_: producto._id,
     nombre: producto.nombre,
     marca: producto.marca,
@@ -260,16 +252,14 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
       {edit ? (
         <>
           <td
-            className={`bg-gray-${
-              darkMode ? 900 : 50
-            } border border-gray-600 p-2 rounded-lg m-2 text-center`}>
+            className={`bg-gray-${darkMode ? 900 : 50
+              } border border-gray-600 p-2 rounded-lg m-2 text-center`}>
             {producto._id.slice(19)}
           </td>
           <td>
             <input
-              className={`bg-gray-${
-                darkMode ? 900 : 50
-              } border border-gray-600 p-2 rounded-lg m-2`}
+              className={`bg-gray-${darkMode ? 900 : 50
+                } border border-gray-600 p-2 rounded-lg m-2`}
               type="text"
               value={infoNuevoProducto.nombre}
               onChange={(e) =>
@@ -282,9 +272,8 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
           </td>
           <td>
             <input
-              className={`bg-gray-${
-                darkMode ? 900 : 50
-              } border border-gray-600 p-2 rounded-lg m-2`}
+              className={`bg-gray-${darkMode ? 900 : 50
+                } border border-gray-600 p-2 rounded-lg m-2`}
               type="text"
               value={infoNuevoProducto.marca}
               onChange={(e) =>
@@ -297,9 +286,8 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
           </td>
           <td>
             <input
-              className={`bg-gray-${
-                darkMode ? 900 : 50
-              } border border-gray-600 p-2 rounded-lg m-2`}
+              className={`bg-gray-${darkMode ? 900 : 50
+                } border border-gray-600 p-2 rounded-lg m-2`}
               type="text"
               value={infoNuevoProducto.modelo}
               onChange={(e) =>
@@ -312,9 +300,8 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
           </td>
           <td>
             <input
-              className={`bg-gray-${
-                darkMode ? 900 : 50
-              } border border-gray-600 p-2 rounded-lg m-2`}
+              className={`bg-gray-${darkMode ? 900 : 50
+                } border border-gray-600 p-2 rounded-lg m-2`}
               type="text"
               value={infoNuevoProducto.valorunitario}
               onChange={(e) =>
@@ -340,9 +327,8 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               }
             /> */}
             <select
-              className={`bg-gray-${
-                darkMode ? 900 : 50
-              } border border-gray-600 p-2 rounded-lg m-2`}
+              className={`bg-gray-${darkMode ? 900 : 50
+                } border border-gray-600 p-2 rounded-lg m-2`}
               value={infoNuevoProducto.estado}
               onChange={(e) =>
                 setInfoNuevoProducto({
@@ -359,53 +345,46 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
       ) : (
         <>
           <td
-            className={`text-center border border-${
-              darkMode ? "white" : "black"
-            } text-${darkMode ? "white" : "black"}`}
+            className={`text-center border border-${darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
           >
             {producto._id.slice(19)}
           </td>
           <td
-            className={`text-center border border-${
-              darkMode ? "white" : "black"
-            } text-${darkMode ? "white" : "black"}`}
+            className={`text-center border border-${darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
           >
             {producto.nombre}
           </td>
           <td
-            className={`text-center border border-${
-              darkMode ? "white" : "black"
-            } text-${darkMode ? "white" : "black"}`}
+            className={`text-center border border-${darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
           >
             {producto.marca}
           </td>
           <td
-            className={`text-center border border-${
-              darkMode ? "white" : "black"
-            } text-${darkMode ? "white" : "black"}`}
+            className={`text-center border border-${darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
           >
             {producto.modelo}
           </td>
           <td
-            className={`text-center border border-${
-              darkMode ? "white" : "black"
-            } text-${darkMode ? "white" : "black"}`}
+            className={`text-center border border-${darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
           >
             {producto.valorunitario}
           </td>
           <td
-            className={`text-center border border-${
-              darkMode ? "white" : "black"
-            } text-${darkMode ? "white" : "black"}`}
+            className={`text-center border border-${darkMode ? "white" : "black"
+              } text-${darkMode ? "white" : "black"}`}
           >
             {producto.estado}
           </td>
         </>
       )}
       <td
-        className={`text-center border border-${
-          darkMode ? "white" : "black"
-        } text-${darkMode ? "white" : "black"}`}
+        className={`text-center border border-${darkMode ? "white" : "black"
+          } text-${darkMode ? "white" : "black"}`}
       >
         <div className="flex w-full justify-around">
           {edit ? (
@@ -428,18 +407,16 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
               <Tooltip title="Editar Producto" arrow placement="top">
                 <i
                   onClick={() => setEdit(!edit)}
-                  className={`fas fa-pencil-alt text-${
-                    darkMode ? "white" : "black"
-                  } hover:text-blue-400`}
+                  className={`fas fa-pencil-alt text-${darkMode ? "white" : "black"
+                    } hover:text-blue-400`}
                 />
               </Tooltip>
 
               <Tooltip title="Eliminar Producto" arrow placement="top">
                 <i
                   onClick={() => setOpenDialog(true)}
-                  className={`fas fa-trash text-${
-                    darkMode ? "white" : "black"
-                  } hover:text-red-700`}
+                  className={`fas fa-trash text-${darkMode ? "white" : "black"
+                    } hover:text-red-700`}
                 />
               </Tooltip>
             </>
@@ -450,9 +427,8 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
             className={`p-8 flex flex-col bg-${darkMode ? "black" : "white"}`}
           >
             <h1
-              className={`text-gray-${
-                darkMode ? "50" : "900"
-              } text-2xl font-bold`}
+              className={`text-gray-${darkMode ? "50" : "900"
+                } text-2xl font-bold`}
             >
               ¿Está seguro de que quiere eliminar el producto?
             </h1>
@@ -518,13 +494,12 @@ const AddProduct = ({ setMostrarTabla, listaProductos, setProductos }) => {
   const { darkMode } = useDarkMode();
 
   return (
-    <div className="place-content-center pl-60 pr-60">
+    <div className="w-full h-full px-28 lg:px-56">
       <p className="pl-12 text-2xl my-5">Registrar Nuevo Producto</p>
       <form ref={form} onSubmit={submitForm}>
         <div
-          className={`grid grid-cols-3 border-4 border-double border-${
-            darkMode ? "white" : "black"
-          } items-center justify-center w-full pr-32 pl-32 pt-20 pb-20`}
+          className={`w-full h-full border-4 border-double border-${darkMode ? "white" : "black"
+            } items-center justify-center px-12 py-10 lg:px-0 lg:grid grid-cols-3`}
         >
           <div className="m-5">
             <label>Nombre o Descripción</label>
