@@ -3,7 +3,7 @@ import Head from "components/Head";
 import React from "react";
 import SidebarResponsive from 'components/SidebarResponsive';
 
-const Private = ({ children} ) => {
+const Private = ({ children }) => {
   return (
     <div className="flex flex-col justify-between h-screen">
       <Head />
