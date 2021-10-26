@@ -8,15 +8,16 @@ import {
   faMobileAlt,
   faUsers,
   faUser,
-  faSignOutAlt,
   faSun,
   faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDarkMode } from "context/darkMode";
 import useActiveRoute from "hooks/useActiveRoute";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Head = () => {
   const { darkMode } = useDarkMode();
+  const { logout } = useAuth0();
   return (
     <nav className="flex w-full bg-blue-500 ">
       <div className="flex w-full ">
@@ -60,8 +61,20 @@ const Head = () => {
           <li>
             <Ruta icono={faUser} ruta={"/profile"} nombre={"Mi Cuenta"} />
           </li>
-          <li>
-            <Ruta icono={faSignOutAlt} ruta={"/login"} nombre={"Salir"} />
+          <li className="flex">
+            {/* <Ruta
+              icono={faSignOutAlt}
+              ruta={"/login"}
+              nombre={"Salir"}
+            /> */}
+
+            <button
+              className="flex items-center text-white px-16 py-5 bg-blue-500 hover:bg-gray-500"
+              onClick={() => logout({ returnTo: window.location.origin })}
+            >
+              <i class="pr-3 fas fa-sign-out-alt"></i>
+              Salir
+            </button>
           </li>
         </ul>
       </div>
@@ -70,7 +83,7 @@ const Head = () => {
 };
 
 const Ruta = ({ icono, ruta, nombre }) => {
-const isActive = useActiveRoute(ruta);
+  const isActive = useActiveRoute(ruta);
   return (
     <Link to={ruta}>
       <button
