@@ -14,6 +14,7 @@ const Sales = () => {
     const fetchVendedores = async () => {
       await obtenerUsuarios(
         (response) => {
+          console.log("respuesta de usuarios", response);
           setVendedores(response.data);
         },
         (error) => {
@@ -56,17 +57,16 @@ const Sales = () => {
       })
       .filter((p) => p);
 
-    console.log("Lista antes de cantidad", listaProductos)
-    
-    Object.keys(nuevaVenta)
-    .forEach((k) => {
+    console.log("Lista antes de cantidad", listaProductos);
+
+    Object.keys(nuevaVenta).forEach((k) => {
       if (k.includes("cantidad")) {
         const indice = parseInt(k.split("_")[1]);
         listaProductos[indice]["cantidad"] = nuevaVenta[k];
       }
-    })
-    
-    console.log("Lista después de cantidad", listaProductos)
+    });
+
+    console.log("Lista después de cantidad", listaProductos);
 
     const datosVenta = {
       vendedor: vendedores.filter((v) => v._id === nuevaVenta.vendedor)[0],
@@ -86,7 +86,6 @@ const Sales = () => {
         console.log(error);
       }
     );
-
 
     // const infoConsolidada = {
     //   valor: nuevaVenta.valor,
@@ -128,12 +127,7 @@ const Sales = () => {
                 Seleccione un Vendedor
               </option>
               {vendedores.map((el) => {
-                return (
-                  <option
-                    key={nanoid()}
-                    value={el._id}
-                  >{`${el.nombre} ${el.apellido}`}</option>
-                );
+                return <option key={nanoid()} value={el._id}>{`${el.nombre} ${el.apellido}`}</option>;
               })}
             </select>
           </label>
@@ -148,6 +142,7 @@ const Sales = () => {
               className="bg-gray-50 border border-gray-600 p-2 rounded-lg"
               type="number"
               name="valor"
+              required
             />
           </label>
           <div className="flex justify-center">
@@ -172,6 +167,7 @@ const TablaProductos = ({ productos, setProductos, setProductosTabla }) => {
   useEffect(() => {
     console.log(productoAAgregar);
   }, [productoAAgregar]);
+
   useEffect(() => {
     console.log("filastabla:", filasTabla);
     setProductosTabla(filasTabla);
@@ -215,7 +211,8 @@ const TablaProductos = ({ productos, setProductos, setProductosTabla }) => {
           </select>
         </label>
         <button
-          onClick={agregarNuevoProducto}
+          type="button"
+          onClick={() => agregarNuevoProducto()}
           className="col-span-2 bg-blue-500 p2 rounded-md shadow-md hover:bg-blue-700 text-white"
           // className="col-span-2 sm:w-40 md:w-72 bg-blue-500 sm:mx-2 md:mx-5 lg:mx-7 xl:mx-10 2xl:mx-14 hover:bg-blue-700 hover:text-white shadow-xl sm:my-2 md:my-5 lg:my-7 xl:my-12 2xl:my-14  text-white rounded-lg h-14 w-3/4 text-xl"
         >
