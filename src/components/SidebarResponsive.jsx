@@ -41,7 +41,7 @@ const SidebarResponsive = () => {
                     <ResponsiveRoute icono={faMobileAlt} ruta={"/products"} nombre={"Administrador de Productos"} />
                     <ResponsiveRoute icono={faFileInvoiceDollar} ruta={"/sale"} nombre={"Administrador de Ventas"} />
                     <ResponsiveRoute icono={faUsers} ruta={"/user"} nombre={"Administrador de Usuarios"} />
-                    <DarkModeSwitch estilo={`pl-3 flex flex-row p-2 text-white`} icono={darkMode ? faSun : faMoon} />
+                    <DarkModeSwitch estilo={`pl-3 flex flex-row p-2 text-white text-xl md:text-2xl`} icono={darkMode ? faSun : faMoon} />
                     <ResponsiveRoute icono={faUser} ruta={"/profile"} nombre={"Mi Cuenta"} />
                     <ResponsiveRoute icono={faSignOutAlt} ruta={"/login"} nombre={"Salir"} />
                 </ul>
@@ -54,8 +54,8 @@ const ResponsiveRoute = ({ ruta, nombre, icono }) => {
     const isActive = useActiveRoute(ruta);
     return (
         <Link to={ruta}>
-            <li className={`flex flex-row text-white p-2 bg-${isActive ? "blue-900" : "blue-500"}`}>
-                <div className="flex flex-row p-1">
+            <li className={`flex flex-row text-xl md:text-2xl text-white p-2 bg-${isActive ? "blue-900" : "blue-500"}`}>
+                <div className="flex flex-row py-1">
                     <FontAwesomeIcon
                         className="flex"
                         icon={icono}
