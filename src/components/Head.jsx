@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LogoSmall from "./LogoSmall";
 import { Link } from "react-router-dom";
 import DarkModeSwitch from "./DarkModeSwitch";
@@ -17,7 +17,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Head = () => {
   const { darkMode } = useDarkMode();
-  const { logout } = useAuth0();
+  const { user, logout } = useAuth0();
+
+  const cerrarSesion = () => {
+    logout({ returnTo: "http://localhost:3000/sales" });
+    localStorage.setItem("Token", null);
+  };
   return (
     <nav className="flex w-full bg-blue-500 ">
       <div className="flex w-full ">
@@ -59,7 +64,12 @@ const Head = () => {
             />
           </li>
           <li>
-            <Ruta icono={faUser} ruta={"/profile"} nombre={"Mi Cuenta"} />
+            <Ruta
+              //icono={faUser}
+              ruta={"/profile"}
+              //nombre={"Mi Cuenta"}
+              usuario={user}
+            />
           </li>
           <li className="flex">
             {/* <Ruta
@@ -70,7 +80,7 @@ const Head = () => {
 
             <button
               className="flex items-center text-white px-16 py-5 bg-blue-500 hover:bg-gray-500"
-              onClick={() => logout({ returnTo: "http://localhost:3000/sales" })}
+              onClick={() => cerrarSesion()}
               // onClick={() => logout({ returnTo: window.location.origin })}
             >
               <i class="pr-3 fas fa-sign-out-alt"></i>
@@ -83,7 +93,7 @@ const Head = () => {
   );
 };
 
-const Ruta = ({ icono, ruta, nombre }) => {
+const Ruta = ({ icono, ruta, nombre, usuario }) => {
   const isActive = useActiveRoute(ruta);
   return (
     <Link to={ruta}>
@@ -92,6 +102,9 @@ const Ruta = ({ icono, ruta, nombre }) => {
           isActive ? "blue-900" : "blue-500"
         } hover:bg-gray-500`}
       >
+        {usuario ? (<>
+          <img src={usuario.picture} className="h-5 w-5 rounded-full"/>
+          {usuario.name}</>) : (<><i className={`${icono} w-10`} /></>)}
         <div className="flex justify-center w-10">
           <FontAwesomeIcon
             className="flex fill-current"

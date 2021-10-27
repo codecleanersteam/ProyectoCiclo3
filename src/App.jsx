@@ -40,6 +40,7 @@ function App() {
       clientId="5WiXryJJwMNw7gRE08EbqUTaOd0BAzys"
       // redirectUri={window.location.origin}
       redirectUri="http://localhost:3000/sales"
+      audience="api-proyecto-ciclo3-v2"
     >
       <div>
         <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>

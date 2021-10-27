@@ -4,7 +4,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDarkMode } from "context/darkMode";
 import { nanoid } from "nanoid";
 import { Dialog, Tooltip } from "@material-ui/core";
-import { obtenerProductos, crearProducto, editarProducto, eliminarProducto } from "utils/api";
+import {
+  obtenerProductos,
+  crearProducto,
+  editarProducto,
+  eliminarProducto,
+} from "utils/api";
+import ReactLoading from "react-loading";
 
 const Products = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -13,19 +19,26 @@ const Products = () => {
   const [colorBoton, setColorBoton] = useState("blue-300");
   const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
   const { darkMode } = useDarkMode();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("Consulta", ejecutarConsulta);
-    if (ejecutarConsulta) {
-      obtenerProductos(
+    const fetchProductos = async () => {
+      setLoading(true);
+      await obtenerProductos(
         (response) => {
           setProductos(response.data);
+          setEjecutarConsulta(false);
+          setLoading(false);
         },
         (error) => {
           console.error(error);
+          setLoading(false);
         }
       );
-      setEjecutarConsulta(false);
+    };
+    console.log("Consulta", ejecutarConsulta);
+    if (ejecutarConsulta) {
+      fetchProductos();
     }
     // }, [mostrarTabla]);
   }, [ejecutarConsulta]);
@@ -70,6 +83,7 @@ const Products = () => {
 
       {mostrarTabla ? (
         <TablaProductos
+          loading={loading}
           listaProductos={productos}
           setEjecutarConsulta={setEjecutarConsulta}
         />
@@ -86,7 +100,7 @@ const Products = () => {
   );
 };
 
-const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
+const TablaProductos = ({ loading, listaProductos, setEjecutarConsulta }) => {
   const [search, setSearch] = useState("");
   const { darkMode } = useDarkMode();
   const [productosFiltrados, setProductosFiltrados] = useState(listaProductos);
@@ -113,76 +127,80 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
       </div>
       <p className="my-5 text-2xl">Lista de Productos</p>
       <div className="hidden md:block">
-        <table
-          className={`border-2 border-${
-            darkMode ? "white" : "black"
-          } w-full tabla`}
-        >
-          <thead>
-            <tr className="h-14">
-              <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
-              >
-                ID
-              </th>
-              <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
-              >
-                Nombre o Descripción
-              </th>
-              <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
-              >
-                Marca
-              </th>
-              <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
-              >
-                Modelo
-              </th>
-              <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
-              >
-                Valor Unitario
-              </th>
-              <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
-              >
-                Estado
-              </th>
-              <th
-                className={`w-1/4 border border-${
-                  darkMode ? "white" : "black"
-                } text-${darkMode ? "white" : "black"}`}
-              >
-                Tareas
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {productosFiltrados.map((producto) => {
-              return (
-                <FilaProducto
-                  key={nanoid}
-                  producto={producto}
-                  setEjecutarConsulta={setEjecutarConsulta}
-                />
-              );
-            })}
-          </tbody>
-        </table>
+        {loading ? (
+          <ReactLoading type="balls" color="#82c0e7" height={667} width={375} />
+        ) : (
+          <table
+            className={`border-2 border-${
+              darkMode ? "white" : "black"
+            } w-full tabla`}
+          >
+            <thead>
+              <tr className="h-14">
+                <th
+                  className={`w-1/4 border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
+                  ID
+                </th>
+                <th
+                  className={`w-1/4 border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
+                  Nombre o Descripción
+                </th>
+                <th
+                  className={`w-1/4 border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
+                  Marca
+                </th>
+                <th
+                  className={`w-1/4 border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
+                  Modelo
+                </th>
+                <th
+                  className={`w-1/4 border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
+                  Valor Unitario
+                </th>
+                <th
+                  className={`w-1/4 border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
+                  Estado
+                </th>
+                <th
+                  className={`w-1/4 border border-${
+                    darkMode ? "white" : "black"
+                  } text-${darkMode ? "white" : "black"}`}
+                >
+                  Tareas
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {productosFiltrados.map((producto) => {
+                return (
+                  <FilaProducto
+                    key={nanoid}
+                    producto={producto}
+                    setEjecutarConsulta={setEjecutarConsulta}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
       <div className="flex flex-col w-full m-2 md:hidden">
         {productosFiltrados.map((el) => {
