@@ -70,7 +70,8 @@ const Head = () => {
 
             <button
               className="flex items-center text-white px-16 py-5 bg-blue-500 hover:bg-gray-500"
-              onClick={() => logout({ returnTo: window.location.origin })}
+              onClick={() => logout({ returnTo: "http://localhost:3000/sales" })}
+              // onClick={() => logout({ returnTo: window.location.origin })}
             >
               <i class="pr-3 fas fa-sign-out-alt"></i>
               Salir
