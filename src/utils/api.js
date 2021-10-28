@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const getToken = () => {
-  return `Bearer ${localStorage.getItem("Token")}`
-}
+  return `Bearer ${localStorage.getItem("Token")}`;
+};
 
 export const obtenerProductos = async (successCallback, errorCallback) => {
   const options = {
@@ -19,7 +19,7 @@ export const crearProducto = async (data, successCallback, errorCallback) => {
   const options = {
     method: "POST",
     url: "http://192.168.0.100:3001/products/",
-    headers: { "Content-Type": "application/json", Authorization: getToken()},
+    headers: { "Content-Type": "application/json", Authorization: getToken() },
     data,
   };
   await axios.request(options).then(successCallback).catch(errorCallback);
@@ -59,11 +59,35 @@ export const obtenerUsuarios = async (successCallback, errorCallback) => {
   await axios.request(options).then(successCallback).catch(errorCallback);
 };
 
+export const obtenerDatosUsuario = async (successCallback, errorCallback) => {
+  const options = {
+    method: "GET",
+    url: "http://192.168.0.100:3001/users/self",
+    headers: { "Content-Type": "application/json", Authorization: getToken() }, //3. Enviarle el token al Backend
+  };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+};
+
+export const editarUsuario = async (
+  id,
+  data,
+  successCallback,
+  errorCallback
+) => {
+  const options = {
+    method: "PATCH",
+    url: `http://192.168.0.100:3001/users/${id}/`,
+    headers: { "Content-Type": "application/json", Authorization: getToken() },
+    data,
+  };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+};
+
 export const crearVenta = async (data, successCallback, errorCallback) => {
   const options = {
     method: "POST",
     url: "http://192.168.0.100:3001/sales/",
-    headers: { "Content-Type": "application/json", Authorization: getToken(),},
+    headers: { "Content-Type": "application/json", Authorization: getToken() },
     data,
   };
   await axios.request(options).then(successCallback).catch(errorCallback);

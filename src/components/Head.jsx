@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import LogoSmall from "./LogoSmall";
 import { Link } from "react-router-dom";
 import DarkModeSwitch from "./DarkModeSwitch";
@@ -7,7 +7,7 @@ import {
   faFileInvoiceDollar,
   faMobileAlt,
   faUsers,
-  faUser,
+  //faUser,
   faSun,
   faMoon,
 } from "@fortawesome/free-solid-svg-icons";
@@ -51,7 +51,7 @@ const Head = () => {
           <li>
             <Ruta
               icono={faUsers}
-              ruta={"/user"}
+              ruta={"/users"}
               nombre={"Administrador de Usuarios"}
             />
           </li>

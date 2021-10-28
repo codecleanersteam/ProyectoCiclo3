@@ -11,6 +11,7 @@ import {
   eliminarProducto,
 } from "utils/api";
 import ReactLoading from "react-loading";
+import PrivateComponent from "components/PrivateComponent";
 
 const Products = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
@@ -179,13 +180,15 @@ const TablaProductos = ({ loading, listaProductos, setEjecutarConsulta }) => {
                 >
                   Estado
                 </th>
-                <th
-                  className={`w-1/4 border border-${
-                    darkMode ? "white" : "black"
-                  } text-${darkMode ? "white" : "black"}`}
-                >
-                  Tareas
-                </th>
+                <PrivateComponent roleList={["admin"]}>
+                  <th
+                    className={`w-1/4 border border-${
+                      darkMode ? "white" : "black"
+                    } text-${darkMode ? "white" : "black"}`}
+                  >
+                    Tareas
+                  </th>
+                </PrivateComponent>
               </tr>
             </thead>
             <tbody>
@@ -406,77 +409,79 @@ const FilaProducto = ({ producto, setEjecutarConsulta }) => {
           </td>
         </>
       )}
-      <td
-        className={`text-center border border-${
-          darkMode ? "white" : "black"
-        } text-${darkMode ? "white" : "black"}`}
-      >
-        <div className="flex w-full justify-around">
-          {edit ? (
-            <>
-              <Tooltip title="Confirmar Edición" arrow placement="top">
-                <i
-                  onClick={() => actualizarProducto()}
-                  className="fas fa-check text-green-700 hover:text-green-500"
-                />
-              </Tooltip>
-              <Tooltip title="Cancelar Edición" arrow placement="top">
-                <i
-                  onClick={() => setEdit(!edit)}
-                  className="fas fa-ban text-blue-700 hover:text-blue-400"
-                />
-              </Tooltip>
-            </>
-          ) : (
-            <>
-              <Tooltip title="Editar Producto" arrow placement="top">
-                <i
-                  onClick={() => setEdit(!edit)}
-                  className={`fas fa-pencil-alt text-${
-                    darkMode ? "white" : "black"
-                  } hover:text-blue-400`}
-                />
-              </Tooltip>
+      <PrivateComponent roleList={["admin"]}>
+        <td
+          className={`text-center border border-${
+            darkMode ? "white" : "black"
+          } text-${darkMode ? "white" : "black"}`}
+        >
+          <div className="flex w-full justify-around">
+            {edit ? (
+              <>
+                <Tooltip title="Confirmar Edición" arrow placement="top">
+                  <i
+                    onClick={() => actualizarProducto()}
+                    className="fas fa-check text-green-700 hover:text-green-500"
+                  />
+                </Tooltip>
+                <Tooltip title="Cancelar Edición" arrow placement="top">
+                  <i
+                    onClick={() => setEdit(!edit)}
+                    className="fas fa-ban text-blue-700 hover:text-blue-400"
+                  />
+                </Tooltip>
+              </>
+            ) : (
+              <>
+                <Tooltip title="Editar Producto" arrow placement="top">
+                  <i
+                    onClick={() => setEdit(!edit)}
+                    className={`fas fa-pencil-alt text-${
+                      darkMode ? "white" : "black"
+                    } hover:text-blue-400`}
+                  />
+                </Tooltip>
 
-              <Tooltip title="Eliminar Producto" arrow placement="top">
-                <i
-                  onClick={() => setOpenDialog(true)}
-                  className={`fas fa-trash text-${
-                    darkMode ? "white" : "black"
-                  } hover:text-red-700`}
-                />
-              </Tooltip>
-            </>
-          )}
-        </div>
-        <Dialog open={openDialog}>
-          <div
-            className={`p-8 flex flex-col bg-${darkMode ? "black" : "white"}`}
-          >
-            <h1
-              className={`text-gray-${
-                darkMode ? "50" : "900"
-              } text-2xl font-bold`}
-            >
-              ¿Está seguro de que quiere eliminar el producto?
-            </h1>
-            <div className="flex w-full justify-center my-4">
-              <button
-                onClick={() => deleteProduct()}
-                className="mx-2 px-4 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md"
-              >
-                Si
-              </button>
-              <button
-                onClick={() => setOpenDialog(false)}
-                className="mx-2 px-4 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md"
-              >
-                No
-              </button>
-            </div>
+                <Tooltip title="Eliminar Producto" arrow placement="top">
+                  <i
+                    onClick={() => setOpenDialog(true)}
+                    className={`fas fa-trash text-${
+                      darkMode ? "white" : "black"
+                    } hover:text-red-700`}
+                  />
+                </Tooltip>
+              </>
+            )}
           </div>
-        </Dialog>
-      </td>
+          <Dialog open={openDialog}>
+            <div
+              className={`p-8 flex flex-col bg-${darkMode ? "black" : "white"}`}
+            >
+              <h1
+                className={`text-gray-${
+                  darkMode ? "50" : "900"
+                } text-2xl font-bold`}
+              >
+                ¿Está seguro de que quiere eliminar el producto?
+              </h1>
+              <div className="flex w-full justify-center my-4">
+                <button
+                  onClick={() => deleteProduct()}
+                  className="mx-2 px-4 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md"
+                >
+                  Si
+                </button>
+                <button
+                  onClick={() => setOpenDialog(false)}
+                  className="mx-2 px-4 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </Dialog>
+        </td>
+      </PrivateComponent>
     </tr>
   );
 };
